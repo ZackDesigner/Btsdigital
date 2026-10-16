@@ -356,23 +356,14 @@
         <button class="btn-action" onclick="iniciarTriviaBTS()">Comenzar Trivia BTS 🌟</button>
     </div>
 
-    <!-- 3. COMPATIBILIDAD (6 PREGUNTAS) -->
+    <!-- 3. COMPATIBILIDAD (6 PREGUNTAS CON RESPUESTAS VARIADAS) -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-heart"></i> Descubre tu Compatibilidad con BTS</h2>
-        <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:12px;">Test interactivo de 6 preguntas ardientes y exclusivas con los chicos.</p>
+        <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:12px;">Test interactivo de 6 preguntas exclusivas para descubrir con quién tienes química.</p>
         <button class="btn-action" style="background:linear-gradient(45deg, var(--neon-pink), var(--neon-gold));" onclick="iniciarCompatibilidadBTS()">Iniciar Test Ardiente 🔥</button>
     </div>
 
-    <!-- 4. REPRODUCTOR RADIO -->
-    <div class="card">
-        <h2 class="card-title"><i class="fas fa-radio"></i> Radio BTS en Vivo</h2>
-        <audio controls style="width:100%; margin-top:5px;">
-            <source src="https://stream.zeno.fm/f3wvbb1428uvv" type="audio/mpeg">
-            Tu navegador no soporta el reproductor de radio.
-        </audio>
-    </div>
-
-    <!-- 5. TIENDA PACK -->
+    <!-- 4. TIENDA PACK -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-store"></i> Tienda Recursos Digitales BTS</h2>
         <div class="pack-box">
@@ -387,7 +378,7 @@
         </div>
     </div>
 
-    <!-- 6. MERCADO VIRTUAL (9 CASILLAS) -->
+    <!-- 5. MERCADO VIRTUAL (9 CASILLAS) -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-shopping-bag"></i> Mercado Virtual Army</h2>
         <div class="market-grid">
@@ -403,7 +394,7 @@
         </div>
     </div>
 
-    <!-- 7. GALERÍA FONDOS -->
+    <!-- 6. GALERÍA FONDOS -->
     <div class="card">
         <h2 class="card-title" style="color:var(--neon-gold);"><i class="fas fa-mobile-alt"></i> Galería Fondos BTS (Gratis)</h2>
         <p style="font-size:0.8rem; color:#aaa; margin-bottom:10px;">Desliza y descarga el fondo de tu integrante favorito.</p>
@@ -585,14 +576,34 @@
             window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
         }
 
+        // Test de Compatibilidad con preguntas y opciones dinámicas únicas
         var preguntasComp = [
-            "1. ¿Cómo te imaginas tu cita ideal de noche con tu bias?",
-            "2. ¿Qué detalle apasionado prefieres recibir?",
-            "3. ¿Cuál es la cualidad que más te atrae en un chico?",
-            "4. ¿Qué tipo de música te pondría en ambiente romántico?",
-            "5. ¿Cuál es tu reacción cuando te miran fijamente a los ojos?",
-            "6. ¿En qué lugar te gustaría un beso misterioso?"
+            {
+                p: "1. ¿Cómo te imaginas tu cita ideal de noche con tu bias?",
+                ops: ["A) Caminata privada bajo las estrellas 💫", "B) Cena elegante e intensa a la luz de las velas 🔥", "C) Maratón de películas y risas en casa 🍿"]
+            },
+            {
+                p: "2. ¿Qué detalle apasionado prefieres recibir?",
+                ops: ["A) Una carta escrita a mano con sus pensamientos secretos ✉️", "B) Una mirada profunda e inolvidable a los ojos 👀", "C) Un abrazo cálido e inesperado por la espalda 💖"]
+            },
+            {
+                p: "3. ¿Cuál es la cualidad que más te atrae en un chico?",
+                ops: ["A) Su inteligencia, liderazgo y misterio 🧠", "B) Su carisma, sensualidad y confianza 😈", "C) Su ternura, sentido del humor y dulzura 😊"]
+            },
+            {
+                p: "4. ¿Qué tipo de música te pondría en ambiente romántico?",
+                ops: ["A) Baladas suaves y R&B apasionado 🎶", "B) Beats intensos y reggaetón/pop atrapante 💥", "C) Melodías acústicas de piano o guitarra 🎹"]
+            },
+            {
+                p: "5. ¿Cuál es tu reacción cuando te miran fijamente?",
+                ops: ["A) Sonrío tímida pero mantengo el contacto visual 🙈", "B) Me acerco más y le devuelvo la mirada con picardía 😏", "C) Me me da vergüenza y me río nerviosa 💕"]
+            },
+            {
+                p: "6. ¿En qué lugar te gustaría un beso inolvidable?",
+                ops: ["A) En un escenario o azotea con vista a la ciudad 🌃", "B) En el camerino a solas antes del concierto 💋", "C) Bajo la lluvia en una calle tranquila 🌧️"]
+            }
         ];
+        
         var indexComp = 0;
 
         function iniciarCompatibilidadBTS() {
@@ -602,12 +613,15 @@
         }
 
         function mostrarPreguntaComp() {
+            var item = preguntasComp[indexComp];
             var cuerpo = document.getElementById('cuerpoJuegoModal');
+            var btns = '';
+            for(var i=0; i<item.ops.length; i++) {
+                btns += '<button class="btn-action" style="background:#1f2937; margin-bottom:6px;" onclick="siguienteComp()">' + item.ops[i] + '</button>';
+            }
+
             cuerpo.innerHTML = '<h3 style="color:var(--neon-pink); text-align:center; margin-bottom:10px;">🔥 Test Compatibilidad (' + (indexComp + 1) + '/6)</h3>' +
-                '<p style="font-size:0.88rem; margin-bottom:10px;"><b>' + preguntasComp[indexComp] + '</b></p>' +
-                '<button class="btn-action" style="background:#1f2937;" onclick="siguienteComp()">A) Sensual y Misterioso 😈</button>' +
-                '<button class="btn-action" style="background:#1f2937;" onclick="siguienteComp()">B) Apasionado e Intenso 🔥</button>' +
-                '<button class="btn-action" style="background:#1f2937;" onclick="siguienteComp()">C) Dulce y Romántico 💖</button>' +
+                '<p style="font-size:0.88rem; margin-bottom:12px;"><b>' + item.p + '</b></p>' + btns +
                 '<button class="btn-action" style="background:#4b5563; margin-top:10px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cancelar</button>';
         }
 
