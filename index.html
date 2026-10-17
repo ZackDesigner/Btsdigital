@@ -192,7 +192,7 @@
             color: #e2e8f0;
         }
 
-        /* Mercado Virtual Army (Amazon y AliExpress - SheIn eliminado) */
+        /* Mercado Virtual Army */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -210,27 +210,29 @@
 
         .market-card img {
             width: 100%;
-            height: 65px;
+            height: 85px;
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 4px;
         }
 
+        .market-card strong {
+            color: #ffffff;
+            display: block;
+            margin: 4px 0;
+            font-size: 0.72rem;
+        }
+
         .market-link {
             display: block;
             margin-top: 6px;
-            padding: 5px;
+            padding: 6px 4px;
             background: #ff9900;
             color: #121212;
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
-            font-size: 0.7rem;
-        }
-
-        .market-link.aliexpress {
-            background: #ff4747;
-            color: white;
+            font-size: 0.68rem;
         }
 
         /* Galería Fondos BTS */
@@ -362,14 +364,13 @@
     <header>
         <h1>BTS ARMY</h1>
         <p>Portal Oficial | @creativeymvs</p>
-        <!-- Enlaces a Redes Sociales Actualizados -->
         <div class="social-header">
             <a href="https://www.tiktok.com/@trendpulsepicks?_r=1&_t=ZS-9AceP41Nr0L" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
             <a href="https://www.instagram.com/trendpulsepickss?exln=MTl4bXlxN25mNWU4aQ==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </header>
 
-    <!-- 1. MURO ARMY (Conectado a Supabase sin borrarse) -->
+    <!-- 1. MURO ARMY -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-comments"></i> Muro Army</h2>
         <div class="chat-list" id="listaMuro">
@@ -389,14 +390,14 @@
         <button class="btn-action" onclick="publicarMuro()">Enviar al Muro</button>
     </div>
 
-    <!-- 2. TRIVIA (6 PREGUNTAS) -->
+    <!-- 2. TRIVIA -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-star"></i> Zona de BTS: Trivia Oficial</h2>
         <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:12px;">Demuestra tu nivel ARMY en esta Trivia de 6 Preguntas.</p>
         <button class="btn-action" onclick="iniciarTriviaBTS()">Comenzar Trivia BTS 🌟</button>
     </div>
 
-    <!-- 3. COMPATIBILIDAD (6 PREGUNTAS) -->
+    <!-- 3. COMPATIBILIDAD -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-heart"></i> Descubre tu Compatibilidad con BTS</h2>
         <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:12px;">Test interactivo de 6 preguntas exclusivas para descubrir con quién tienes química.</p>
@@ -418,19 +419,40 @@
         </div>
     </div>
 
-    <!-- 5. MERCADO VIRTUAL (Amazon y AliExpress - SheIn eliminado) -->
+    <!-- 5. MERCADO VIRTUAL (6 cuadros de Amazon con letras blancas y botón Ver Oferta) -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-shopping-bag"></i> Mercado Virtual Army</h2>
         <div class="market-grid">
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=1" alt="Amazon"><strong>Album Proof</strong><a href="https://www.amazon.com/s?k=BTS+Proof+Album&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=2" alt="Amazon"><strong>Lightstick</strong><a href="https://www.amazon.com/s?k=BTS+Lightstick&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=3" alt="Amazon"><strong>Hoodie BTS</strong><a href="https://www.amazon.com/s?k=BTS+Hoodie&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=4" alt="AliExpress"><strong>Photocards</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=5" alt="AliExpress"><strong>Mochila BTS</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=6" alt="AliExpress"><strong>BT21 Peluche</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=7" alt="Amazon"><strong>Collar BTS</strong><a href="https://www.amazon.com/s?k=BTS+Necklace&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=8" alt="AliExpress"><strong>Pulsera ARMY</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=9" alt="Amazon"><strong>Taza BT21</strong><a href="https://www.amazon.com/s?k=BT21+Mug&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
+            <div class="market-card">
+                <img src="https://picsum.photos/800/1000?random=1" alt="Album Proof">
+                <strong>Album Proof</strong>
+                <a href="#" target="_blank" class="market-link">Ver Oferta</a>
+            </div>
+            <div class="market-card">
+                <img src="https://picsum.photos/800/1000?random=2" alt="Lightstick">
+                <strong>Lightstick</strong>
+                <a href="#" target="_blank" class="market-link">Ver Oferta</a>
+            </div>
+            <div class="market-card">
+                <img src="https://picsum.photos/800/1000?random=3" alt="Hoodie BTS">
+                <strong>Hoodie BTS</strong>
+                <a href="#" target="_blank" class="market-link">Ver Oferta</a>
+            </div>
+            <div class="market-card">
+                <img src="https://picsum.photos/800/1000?random=4" alt="Collar BTS">
+                <strong>Collar BTS</strong>
+                <a href="#" target="_blank" class="market-link">Ver Oferta</a>
+            </div>
+            <div class="market-card">
+                <img src="https://picsum.photos/800/1000?random=5" alt="Taza BT21">
+                <strong>Taza BT21</strong>
+                <a href="#" target="_blank" class="market-link">Ver Oferta</a>
+            </div>
+            <div class="market-card">
+                <img src="https://picsum.photos/800/1000?random=6" alt="Photocards">
+                <strong>Photocards</strong>
+                <a href="#" target="_blank" class="market-link">Ver Oferta</a>
+            </div>
         </div>
     </div>
 
@@ -439,13 +461,20 @@
         <h2 class="card-title" style="color:var(--neon-gold);"><i class="fas fa-mobile-alt"></i> Galería Fondos BTS (Gratis)</h2>
         <p style="font-size:0.8rem; color:#aaa; margin-bottom:10px;">Desliza y descarga el fondo de tu integrante favorito.</p>
         <div class="carousel-box">
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=10" alt="RM"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=10', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=11" alt="Jin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=11', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=12" alt="Suga"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=12', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=13" alt="J-Hope"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=13', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=14" alt="Jimin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=14', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=15" alt="V"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=15', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=16" alt="Jungkook"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=16', '_blank')">Descargar</button></div>
+            <!-- 1. RM -->
+            <div class="carousel-card"><img src="https://xatimg.com/image/D8KR7LbY8dFZ.png" alt="RM"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://xatimg.com/image/2T2SOcgqIDBY.png', '_blank')">Descargar</button></div>
+            <!-- 2. Jimin -->
+            <div class="carousel-card"><img src="https://xatimg.com/image/AbiQLTccKtbx.png" alt="Jimin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://xatimg.com/image/V6RfyTOyNzF3.png', '_blank')">Descargar</button></div>
+            <!-- 3. Jungkook -->
+            <div class="carousel-card"><img src="https://xatimg.com/image/VCeY2WmSvtmw.png" alt="Jungkook"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://xatimg.com/image/BPV9hs74szwe.png', '_blank')">Descargar</button></div>
+            <!-- 4. V -->
+            <div class="carousel-card"><img src="https://xatimg.com/image/g0tL4tAKHQg2.png" alt="V"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://xatimg.com/image/wjq8o6TOyc9H.png', '_blank')">Descargar</button></div>
+            <!-- 5. Jin -->
+            <div class="carousel-card"><img src="https://xatimg.com/image/Iqkk23TX3FUM.png" alt="Jin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://xatimg.com/image/YcF4iLyVMlvu.png', '_blank')">Descargar</button></div>
+            <!-- 6. Suga -->
+            <div class="carousel-card"><img src="https://xatimg.com/image/FaD8uV0SCrBE.png" alt="Suga"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://xatimg.com/image/rolNtTz3x54L.png', '_blank')">Descargar</button></div>
+            <!-- 7. J-Hope -->
+            <div class="carousel-card"><img src="https://xatimg.com/image/cJwh0kCPnh2r.png" alt="J-Hope"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://xatimg.com/image/FQVT0p2YyDLP.png', '_blank')">Descargar</button></div>
         </div>
     </div>
 
@@ -463,7 +492,7 @@
         </div>
     </div>
 
-    <!-- MODAL PAGO (Sin comprobante, solo datos y nota para WhatsApp) -->
+    <!-- MODAL PAGO -->
     <div class="modal-overlay" id="modalPagoOverlay">
         <div class="modal-body-content">
             <h3 style="color:var(--neon-green); text-align:center; margin-bottom:10px;"><i class="fas fa-file-invoice-dollar"></i> Pack de BTS ARMY — 2.50$</h3>
@@ -503,7 +532,6 @@
     </footer>
 
     <script>
-        // Configuración de Supabase (Con tu llave real integrada)
         const SUPABASE_URL = 'https://rcqnmjtxtpnjbgxdwroj.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_eON3oZMtUh1ODkcTiIYvEg_kNpOKjLN';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -521,7 +549,6 @@
             }
         }
 
-        // Cargar mensajes del Muro desde Supabase
         async function cargarMensajesMuro() {
             const lista = document.getElementById('listaMuro');
             const { data, error } = await _supabase
@@ -549,7 +576,6 @@
             }
         }
 
-        // Publicar mensaje y foto en Supabase
         async function publicarMuro() {
             var user = document.getElementById('muroUsuario').value.trim() || 'ARMY_Anonimo';
             var msg = document.getElementById('muroMensaje').value.trim();
@@ -606,10 +632,8 @@
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        // Cargar los mensajes al iniciar la página
         cargarMensajesMuro();
 
-        // Lógica de Trivias y Compatibilidad
         var preguntasTrivia = [
             { p: "1. ¿En qué año debutó BTS oficialmente?", r: ["2013", "2015", "2012"], c: 0 },
             { p: "2. ¿Cuál es el nombre del fandom oficial de BTS?", r: ["BLINK", "ARMY", "STAY"], c: 1 },
