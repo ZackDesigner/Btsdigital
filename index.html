@@ -1,319 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BTS Digital Mobile Portal</title>
-  <!-- SDK de Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    :root {
-      --bts-purple: #702989;
-      --bts-light-purple: #9b51e0;
-      --bg-dark: #121212;
-      --card-bg: #1e1e24;
-      --text-light: #ffffff;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-    }
-
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 15px;
-    }
-
-    h2 {
-      text-align: center;
-      color: var(--bts-light-purple);
-      margin-bottom: 20px;
-    }
-
-    /* GALERÍA DE 7 IMÁGENES */
-    .gallery-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .gallery-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(112, 41, 137, 0.3);
-      text-align: center;
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 600 / 1060;
-      object-fit: cover;
-      display: block;
-    }
-
-    .btn-download {
-      display: inline-block;
-      margin: 12px;
-      padding: 10px 20px;
-      background-color: var(--bts-purple);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 20px;
-      font-weight: bold;
-    }
-
-    /* PAGO MÓVIL */
-    .payment-card, .muro-card {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 14px;
-    }
-
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background-color: #2b2b36;
-      color: #fff;
-      box-sizing: border-box;
-    }
-
-    .notice-box {
-      background-color: rgba(155, 81, 224, 0.15);
-      border-left: 4px solid var(--bts-light-purple);
-      padding: 12px;
-      margin: 15px 0;
-      border-radius: 4px;
-      font-size: 13px;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 14px;
-      background-color: #25d366;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .btn-muro {
-      background-color: var(--bts-purple);
-    }
-
-    /* LISTA DE MENSAJES MURO ARMY */
-    .muro-messages {
-      margin-top: 20px;
-      max-height: 250px;
-      overflow-y: auto;
-    }
-
-    .msg-box {
-      background: #2b2b36;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      border-left: 3px solid var(--bts-light-purple);
-    }
-
-    .msg-author {
-      font-weight: bold;
-      color: var(--bts-light-purple);
-      font-size: 13px;
-    }
-
-    .msg-text {
-      font-size: 14px;
-      margin-top: 4px;
-    }
-
-    /* CHAT TLK.IO */
-    .chat-section {
-      background: var(--card-bg);
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTS Digital - Wall of ARMY</title>
+    <!-- Importamos el cliente de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #121212; color: #ffffff; padding: 20px; }
+        header { text-align: center; margin-bottom: 40px; }
+        header h1 { color: #b19cd9; font-size: 2.5rem; margin-bottom: 10px; }
+        header p { color: #aaaaaa; }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        /* Galería de imágenes */
+        .section-title { font-size: 1.8rem; margin-bottom: 20px; border-bottom: 2px solid #b19cd9; padding-bottom: 5px; color: #b19cd9; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .gallery-item { background: #1e1e1e; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        
+        /* Muro de los ARMY */
+        .wall-section { background: #1e1e1e; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+        form { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        input, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #2a2a2a; color: #fff; font-size: 1rem; }
+        button { background-color: #b19cd9; color: #121212; padding: 12px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #967bb6; }
+        
+        /* Mensajes en tarjeta */
+        .messages-list { display: flex; flex-direction: column; gap: 15px; }
+        .message-card { background: #252525; padding: 15px; border-radius: 8px; border-left: 4px solid #b19cd9; }
+        .message-card h4 { color: #b19cd9; margin-bottom: 5px; }
+        .message-card p { color: #ddd; margin-bottom: 8px; word-break: break-word; }
+        .message-card span { font-size: 0.8rem; color: #777; }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    
-    <!-- GALERÍA -->
-    <h2>Galería Exclusiva BTS</h2>
-    <div class="gallery-container">
-      <div class="gallery-card">
-        <img src="https://i.imgur.com/ENLACE_DIRECTO_1.jpg" alt="BTS Member 1">
-        <a href="https://i.imgur.com/ENLACE_DIRECTO_1.jpg" target="_blank" download class="btn-download">Descargar Diseños 1</a>
-      </div>
-      <div class="gallery-card">
-        <img src="https://i.imgur.com/ENLACE_DIRECTO_2.jpg" alt="BTS Member 2">
-        <a href="https://i.imgur.com/ENLACE_DIRECTO_2.jpg" target="_blank" download class="btn-download">Descargar Diseños 2</a>
-      </div>
-      <div class="gallery-card">
-        <img src="https://i.imgur.com/ENLACE_DIRECTO_3.jpg" alt="BTS Member 3">
-        <a href="https://i.imgur.com/ENLACE_DIRECTO_3.jpg" target="_blank" download class="btn-download">Descargar Diseños 3</a>
-      </div>
-      <div class="gallery-card">
-        <img src="https://i.imgur.com/ENLACE_DIRECTO_4.jpg" alt="BTS Member 4">
-        <a href="https://i.imgur.com/ENLACE_DIRECTO_4.jpg" target="_blank" download class="btn-download">Descargar Diseños 4</a>
-      </div>
-      <div class="gallery-card">
-        <img src="https://i.imgur.com/ENLACE_DIRECTO_5.jpg" alt="BTS Member 5">
-        <a href="https://i.imgur.com/ENLACE_DIRECTO_5.jpg" target="_blank" download class="btn-download">Descargar Diseños 5</a>
-      </div>
-      <div class="gallery-card">
-        <img src="https://i.imgur.com/ENLACE_DIRECTO_6.jpg" alt="BTS Member 6">
-        <a href="https://i.imgur.com/ENLACE_DIRECTO_6.jpg" target="_blank" download class="btn-download">Descargar Diseños 6</a>
-      </div>
-      <div class="gallery-card">
-        <img src="https://i.imgur.com/ENLACE_DIRECTO_7.jpg" alt="BTS Member 7">
-        <a href="https://i.imgur.com/ENLACE_DIRECTO_7.jpg" target="_blank" download class="btn-download">Descargar Diseños 7</a>
-      </div>
-    </div>
+    <header>
+        <h1>BTS Digital Portal</h1>
+        <p>Galería oficial y Muro de amor para ARMY</p>
+    </header>
 
-    <!-- MURO ARMY (PERSISTENTE CON SUPABASE) -->
-    <h2>Muro Army 💜</h2>
-    <div class="muro-card">
-      <form id="muroForm" onsubmit="postMessage(event)">
-        <div class="form-group">
-          <label for="armyName">Tu Nombre / Apodo:</label>
-          <input type="text" id="armyName" placeholder="Ej. ArmyLover99" required>
-        </div>
-        <div class="form-group">
-          <label for="armyMsg">Mensaje para la comunidad:</label>
-          <textarea id="armyMsg" rows="3" placeholder="Escribe un mensaje o saludo..." required></textarea>
-        </div>
-        <button type="submit" class="btn-submit btn-muro">Publicar en el Muro</button>
-      </form>
-
-      <div class="muro-messages" id="muroMessages">
-        <!-- Los mensajes guardados se cargarán aquí automáticamente -->
-      </div>
-    </div>
-
-    <!-- REPORTAR PAGO MÓVIL -->
-    <h2>Reportar Pago Móvil</h2>
-    <div class="payment-card">
-      <form id="paymentForm" onsubmit="sendToWhatsApp(event)">
-        <div class="form-group">
-          <label for="nombre">Nombre Completo:</label>
-          <input type="text" id="nombre" placeholder="Ej. Ana María" required>
-        </div>
-        <div class="form-group">
-          <label for="referencia">Número de Referencia:</label>
-          <input type="number" id="referencia" placeholder="Ej. 123456" required>
-        </div>
-        <div class="form-group">
-          <label for="monto">Monto Transferido (Bs / $):</label>
-          <input type="text" id="monto" placeholder="Ej. 150 Bs" required>
-        </div>
-        <div class="notice-box">
-          📌 <strong>Nota Importante:</strong> Al presionar el botón serás redirigido a WhatsApp. <u>Recuerda enviar tu comprobante/capture de pago en el chat</u> para confirmar tu reporte.
-        </div>
-        <button type="submit" class="btn-submit">Enviar Pago a WhatsApp</button>
-      </form>
-    </div>
-
-    <!-- CHAT EN VIVO TLK.IO -->
-    <h2>Chat Army en Vivo</h2>
-    <div class="chat-section">
-      <div id="tlkio" data-channel="btsdigital" data-theme="theme--pop" style="width:100%;height:400px;"></div>
-      <script async src="http://tlk.io/embed.js" type="text/javascript"></script>
-    </div>
-
-  </div>
-
-  <script>
-    // Inicialización de Supabase con tus credenciales
-    const SUPABASE_URL = 'https://rcqnmjtxtpnjbgxdwroj.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_eON3oZMtUh1ODkcTiIYvEg_kNpOKjLN';
-    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    // Cargar mensajes guardados del Muro Army
-    async function loadMuroMessages() {
-      const { data, error } = await _supabase
-        .from('muro_army')
-        .select('*')
-        .order('id', { ascending: false });
-
-      if (!error && data) {
-        const container = document.getElementById('muroMessages');
-        container.innerHTML = '';
-        data.forEach(msg => {
-          container.innerHTML += `
-            <div class="msg-box">
-              <div class="msg-author">💜 ${msg.nombre}</div>
-              <div class="msg-text">${msg.mensaje}</div>
+    <div class="container">
+        <!-- Galería -->
+        <section>
+            <h2 class="section-title">Galería ARMY</h2>
+            <div class="gallery">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500" alt="BTS 1"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500" alt="BTS 2"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?w=500" alt="BTS 3"></div>
             </div>
-          `;
+        </section>
+
+        <!-- Muro de los ARMY -->
+        <section class="wall-section">
+            <h2 class="section-title">Wall of ARMY</h2>
+            <form id="armyForm">
+                <input type="text" id="nameInput" placeholder="Tu nombre o apodo ARMY" required>
+                <textarea id="messageInput" rows="3" placeholder="Deja tu mensaje para BTS..." required></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+
+            <div id="messagesContainer" class="messages-list">
+                <p style="color: #888;">Cargando mensajes...</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Configuración de Supabase con tus credenciales
+        const SUPABASE_URL = 'https://rcqnmjtxtpnjbgxdwroj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_eON3oZMtUh10DkcTiIYvEg_kNpOkJLN';
+        
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const form = document.getElementById('armyForm');
+        const nameInput = document.getElementById('nameInput');
+        const messageInput = document.getElementById('messageInput');
+        const messagesContainer = document.getElementById('messagesContainer');
+
+        // Función para cargar los mensajes de Supabase
+        async function fetchMessages() {
+            const { data, error } = await _supabase
+                .from('wall_of_army')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error al cargar:', error);
+                messagesContainer.innerHTML = '<p style="color: #ff6b6b;">Error al cargar los mensajes.</p>';
+                return;
+            }
+
+            if (data.length === 0) {
+                messagesContainer.innerHTML = '<p style="color: #888;">Aún no hay mensajes. ¡Sé el primero en escribir!</p>';
+                return;
+            }
+
+            messagesContainer.innerHTML = '';
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'message-card';
+                
+                const date = new Date(item.created_at).toLocaleDateString();
+                
+                card.innerHTML = `
+                    <h4>${escapeHtml(item.name)}</h4>
+                    <p>${escapeHtml(item.message)}</p>
+                    <span>${date}</span>
+                `;
+                messagesContainer.appendChild(card);
+            });
+        }
+
+        // Función para enviar mensaje a la base de datos
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!name || !message) return;
+
+            const { error } = await _supabase
+                .from('wall_of_army')
+                .insert([{ name, message }]);
+
+            if (error) {
+                alert('Error al enviar el mensaje. Inténtalo de nuevo.');
+                console.error(error);
+            } else {
+                nameInput.value = '';
+                messageInput.value = '';
+                fetchMessages(); // Recargar mensajes
+            }
         });
-      }
-    }
 
-    // Publicar un nuevo mensaje en Supabase
-    async function postMessage(e) {
-      e.preventDefault();
-      const nombre = document.getElementById('armyName').value;
-      const mensaje = document.getElementById('armyMsg').value;
+        // Seguridad básica anti-scripting
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
 
-      const { error } = await _supabase
-        .from('muro_army')
-        .insert([{ nombre, mensaje }]);
-
-      if (!error) {
-        document.getElementById('armyName').value = '';
-        document.getElementById('armyMsg').value = '';
-        loadMuroMessages();
-      } else {
-        alert('Error al publicar el mensaje. Asegúrate de crear la tabla muro_army.');
-      }
-    }
-
-    // WhatsApp Payment Redirect
-    function sendToWhatsApp(e) {
-      e.preventDefault();
-      const nombre = document.getElementById('nombre').value;
-      const referencia = document.getElementById('referencia').value;
-      const monto = document.getElementById('monto').value;
-      const phone = "584120000000"; // Tu número aquí
-
-      const message = `¡Hola! Reporto mi pago para BTS Digital:%0A` +
-                      `👤 *Nombre:* ${nombre}%0A` +
-                      `🔢 *Referencia:* ${referencia}%0A` +
-                      `💰 *Monto:* ${monto}%0A%0A` +
-                      `Adjunto mi captura de pantalla a continuación 👇`;
-
-      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-    }
-
-    // Cargar mensajes al iniciar la página
-    loadMuroMessages();
-  </script>
-
+        // Cargar mensajes al abrir la página
+        fetchMessages();
+    </script>
 </body>
 </html>
