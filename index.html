@@ -1,655 +1,279 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTS ARMY Portal | @creativeymvs</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #ff007f 0%, #00f2fe 100%);
-            --card-bg: rgba(20, 15, 35, 0.94);
-            --neon-purple: #a855f7;
-            --neon-pink: #ec4899;
-            --neon-blue: #06b6d4;
-            --neon-green: #22c55e;
-            --neon-gold: #eab308;
-            --text-color: #ffffff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trend Pulse Picks - K-pop Collection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+    body {
+      background-color: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
 
-        body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-color);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
-        }
+    header {
+      background: linear-gradient(135deg, #6b11ff, #2575fc);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-            width: 100%;
-            max-width: 480px;
-        }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
 
-        header h1 {
-            font-size: 2.2rem;
-            text-shadow: 0 0 12px rgba(0,0,0,0.8);
-            letter-spacing: 2px;
-        }
+    header p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
 
-        header p {
-            font-size: 0.85rem;
-            color: #f3f4f6;
-            margin-top: 4px;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
 
-        .card {
-            width: 100%;
-            max-width: 480px;
-            background: var(--card-bg);
-            border: 1px solid rgba(168, 85, 247, 0.5);
-            border-radius: 20px;
-            padding: 18px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(12px);
-            margin-bottom: 18px;
-        }
+    /* Catálogo de Productos */
+    .catalog {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
 
-        .card-title {
-            color: var(--neon-blue);
-            font-size: 1.15rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .product-card {
+      width: 360px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .btn-action {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 8px;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-        }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
 
-        .btn-action:active {
-            transform: scale(0.97);
-        }
+    /* Marco exacto de 360px x 200px */
+    .product-image-box {
+      width: 360px;
+      height: 200px;
+      background-color: #f8f8f8;
+      overflow: hidden;
+      position: relative;
+    }
 
-        .input-custom {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #374151;
-            background: #1f2937;
-            color: white;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
+    .product-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-        /* 1. Muro Army */
-        .chat-list {
-            max-height: 220px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    .product-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
 
-        .chat-item {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 10px;
-            border-radius: 10px;
-            border-left: 4px solid var(--neon-pink);
-            font-size: 0.85rem;
-            word-break: break-word;
-        }
+    .product-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #8a2be2;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
 
-        .chat-item img {
-            max-width: 100%;
-            max-height: 180px;
-            border-radius: 8px;
-            margin-top: 6px;
-            display: block;
-        }
+    .product-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
 
-        .file-upload-label {
-            background: #374151;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            display: block;
-            cursor: pointer;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            text-align: center;
-            border: 1px dashed var(--neon-purple);
-        }
+    .product-desc {
+      font-size: 0.88rem;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
 
-        /* Pack Tienda */
-        .pack-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed var(--neon-pink);
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-        }
+    .buy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: #ff9900;
+      color: #ffffff;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background-color 0.2s ease;
+      text-align: center;
+    }
 
-        .pack-list {
-            text-align: left;
-            margin: 10px 0;
-            font-size: 0.9rem;
-            line-height: 1.8;
-            color: #e2e8f0;
-        }
+    .buy-btn:hover {
+      background-color: #e68a00;
+    }
 
-        /* Mercado Virtual Army */
-        .market-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
+    /* Sección de Redes Sociales */
+    .social-section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 50px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
 
-        .market-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 8px;
-            text-align: center;
-            font-size: 0.75rem;
-        }
+    .social-section h3 {
+      font-size: 1.3rem;
+      color: #222;
+      margin-bottom: 10px;
+    }
 
-        .market-card img {
-            width: 100%;
-            height: 65px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 4px;
-        }
+    .social-section p {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
 
-        .market-link {
-            display: block;
-            margin-top: 6px;
-            padding: 5px;
-            background: var(--neon-pink);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.7rem;
-        }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
 
-        /* Galería Fondos BTS */
-        .carousel-box {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            scroll-snap-type: x mandatory;
-        }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
 
-        .carousel-card {
-            min-width: 130px;
-            height: 220px;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-            background: #111;
-            scroll-snap-align: start;
-            border: 1px solid var(--neon-gold);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 5px;
-        }
+    .social-btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
 
-        .carousel-card img {
-            width: 100%;
-            height: 175px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
+    .social-btn.tiktok {
+      background: #000000;
+    }
 
-        /* Chat Flotante XAT */
-        .float-chat-trigger {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 18px rgba(236, 72, 153, 0.8);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .social-btn.instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
 
-        .float-chat-box {
-            display: none;
-            position: fixed;
-            bottom: 85px;
-            right: 15px;
-            width: 92%;
-            max-width: 480px;
-            height: 420px;
-            background: rgba(15, 12, 25, 0.98);
-            border: 2px solid var(--neon-pink);
-            border-radius: 16px;
-            z-index: 99999;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.95);
-            backdrop-filter: blur(12px);
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .float-chat-head {
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            padding: 10px 14px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .float-chat-iframe-wrap {
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            background: #000;
-        }
-
-        .float-chat-iframe-wrap iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Modales */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
-
-        .modal-body-content {
-            background: #120e24;
-            border: 2px solid var(--neon-purple);
-            border-radius: 20px;
-            padding: 18px;
-            width: 100%;
-            max-width: 400px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        footer {
-            text-align: center;
-            font-size: 0.78rem;
-            color: #d1d5db;
-            margin: 20px 0;
-            line-height: 1.6;
-        }
-    </style>
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      font-size: 0.85rem;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>BTS ARMY</h1>
-        <p>Portal Oficial | @creativeymvs</p>
-    </header>
+  <header>
+    <h1>TREND PULSE PICKS</h1>
+    <p>Las mejores tendencias y recomendaciones exclusivas de K-pop 💜</p>
+  </header>
 
-    <!-- 1. MURO ARMY -->
-    <div class="card">
-        <h2 class="card-title"><i class="fas fa-comments"></i> Muro Army</h2>
-        <div class="chat-list" id="listaMuro">
-            <div class="chat-item">
-                <strong>@creativeymvs 💜:</strong> ¡Bienvenidos ARMY! Dejen sus saludos y fotos por aquí. ✨
-            </div>
+  <div class="container">
+    <div class="catalog">
+
+      <!-- PRODUCTO 1: Foto blanca (Fan Box) -->
+      <div class="product-card">
+        <div class="product-image-box">
+          <img src="URL_DE_TU_IMAGEN_1.jpg" alt="BTS Ultimate Fan Box">
         </div>
-        <input type="text" id="muroUsuario" class="input-custom" placeholder="Tu Nombre / Apodo...">
-        <textarea id="muroMensaje" class="input-custom" placeholder="Escribe tu mensaje en el muro..." rows="2"></textarea>
-        
-        <label class="file-upload-label">
-            <i class="fas fa-camera"></i> Subir Foto de la Galería
-            <input type="file" id="muroArchivo" accept="image/*" style="display:none;" onchange="cargarFotoMuro(this)">
-        </label>
-        <div id="avisoFotoMuro" style="font-size:0.75rem; color:var(--neon-green); margin-bottom:8px; display:none;">✓ Foto cargada lista para enviar</div>
-
-        <button class="btn-action" onclick="publicarMuro()">Enviar al Muro</button>
-    </div>
-
-    <!-- 2. TRIVIA (6 PREGUNTAS) -->
-    <div class="card">
-        <h2 class="card-title"><i class="fas fa-star"></i> Zona de BTS: Trivia Oficial</h2>
-        <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:12px;">Demuestra tu nivel ARMY en esta Trivia de 6 Preguntas.</p>
-        <button class="btn-action" onclick="iniciarTriviaBTS()">Comenzar Trivia BTS 🌟</button>
-    </div>
-
-    <!-- 3. COMPATIBILIDAD (6 PREGUNTAS CON RESPUESTAS VARIADAS) -->
-    <div class="card">
-        <h2 class="card-title"><i class="fas fa-heart"></i> Descubre tu Compatibilidad con BTS</h2>
-        <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:12px;">Test interactivo de 6 preguntas exclusivas para descubrir con quién tienes química.</p>
-        <button class="btn-action" style="background:linear-gradient(45deg, var(--neon-pink), var(--neon-gold));" onclick="iniciarCompatibilidadBTS()">Iniciar Test Ardiente 🔥</button>
-    </div>
-
-    <!-- 4. TIENDA PACK -->
-    <div class="card">
-        <h2 class="card-title"><i class="fas fa-store"></i> Tienda Recursos Digitales BTS</h2>
-        <div class="pack-box">
-            <h3 style="color:var(--neon-gold);">Pack de BTS ARMY</h3>
-            <div class="pack-list">
-                📌 <b>LIBRO BTS PDF</b> (Colección Exclusiva)<br>
-                📌 <b>AFICHES BTS</b> (Diseños HD)<br>
-                📌 <b>ADHESIVO BTS</b> (Stickers para Imprimir)
-            </div>
-            <p style="font-size:1.1rem; font-weight:bold; color:var(--neon-green); margin-bottom:10px;">Precio: 2.50$</p>
-            <button class="btn-action" onclick="abrirPagoModal()">Comprar Pack Completo</button>
+        <div class="product-info">
+          <span class="product-tag">Top Ventas | Amazon Pick 💜</span>
+          <h2 class="product-title">BTS Ultimate Fan Box</h2>
+          <p class="product-desc">Kit completo con lanyards, portacredenciales, photocards y stickers exclusivos.</p>
+          <a href="https://amzn.to/3WuCuB0" target="_blank" rel="nofollow" class="buy-btn">
+            <i class="fa-solid fa-cart-shopping"></i> Ver en Amazon
+          </a>
         </div>
-    </div>
+      </div>
 
-    <!-- 5. MERCADO VIRTUAL (9 CASILLAS) -->
-    <div class="card">
-        <h2 class="card-title"><i class="fas fa-shopping-bag"></i> Mercado Virtual Army</h2>
-        <div class="market-grid">
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=1" alt="Amazon"><strong>Amazon BTS</strong><a href="https://amazon.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=2" alt="Amazon"><strong>Amazon BTS</strong><a href="https://amazon.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=3" alt="Amazon"><strong>Amazon BTS</strong><a href="https://amazon.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=4" alt="SheIn"><strong>SheIn BTS</strong><a href="https://shein.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=5" alt="SheIn"><strong>SheIn BTS</strong><a href="https://shein.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=6" alt="SheIn"><strong>SheIn BTS</strong><a href="https://shein.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=7" alt="AliExpress"><strong>AliExpress</strong><a href="https://aliexpress.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=8" alt="AliExpress"><strong>AliExpress</strong><a href="https://aliexpress.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=9" alt="AliExpress"><strong>AliExpress</strong><a href="https://aliexpress.com" target="_blank" class="market-link">Ver Oferta</a></div>
+      <!-- PRODUCTO 2: Foto negra micrófono (Army Bomb) -->
+      <div class="product-card">
+        <div class="product-image-box">
+          <img src="URL_DE_TU_IMAGEN_2.png" alt="BTS Official Lightstick Army Bomb">
         </div>
-    </div>
-
-    <!-- 6. GALERÍA FONDOS -->
-    <div class="card">
-        <h2 class="card-title" style="color:var(--neon-gold);"><i class="fas fa-mobile-alt"></i> Galería Fondos BTS (Gratis)</h2>
-        <p style="font-size:0.8rem; color:#aaa; margin-bottom:10px;">Desliza y descarga el fondo de tu integrante favorito.</p>
-        <div class="carousel-box">
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=10" alt="RM"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=10', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=11" alt="Jin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=11', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=12" alt="Suga"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=12', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=13" alt="J-Hope"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=13', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=14" alt="Jimin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=14', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=15" alt="V"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=15', '_blank')">Descargar</button></div>
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=16" alt="Jungkook"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=16', '_blank')">Descargar</button></div>
+        <div class="product-info">
+          <span class="product-tag">Must-Have | Concert Essential 💣💜</span>
+          <h2 class="product-title">BTS Official Lightstick Army Bomb</h2>
+          <p class="product-desc">El lightstick oficial imprescindible. Conexión Bluetooth y modo concierto.</p>
+          <a href="https://amzn.to/3UrhHhf" target="_blank" rel="nofollow" class="buy-btn">
+            <i class="fa-solid fa-cart-shopping"></i> Ver en Amazon
+          </a>
         </div>
-    </div>
+      </div>
 
-    <!-- BOTÓN CHAT FLOTANTE -->
-    <button class="float-chat-trigger" onclick="toggleChatFlotante()"><i class="fas fa-comments"></i></button>
-
-    <!-- VENTANA CHAT XAT -->
-    <div class="float-chat-box" id="chatFlotanteBox">
-        <div class="float-chat-head">
-            <span>💬 Chat Btsarmyportal</span>
-            <span style="cursor:pointer;" onclick="toggleChatFlotante()">✖</span>
+      <!-- PRODUCTO 3: Foto álbum (Photocard Binder) -->
+      <div class="product-card">
+        <div class="product-image-box">
+          <img src="URL_DE_TU_IMAGEN_3.jpg" alt="BTS Photocard Binder Collector">
         </div>
-        <div class="float-chat-iframe-wrap">
-            <iframe src="https://xat.com/embed/chat.php#id=220536597&gn=Btsarmyportal" allow="clipboard-write" scrolling="no"></iframe>
+        <div class="product-info">
+          <span class="product-tag">Essential Storage | Collector's Choice 📁💜</span>
+          <h2 class="product-title">BTS Photocard Binder Collector</h2>
+          <p class="product-desc">Álbum coleccionador de alta calidad con cierre de cremallera y hojas transparentes.</p>
+          <a href="https://amzn.to/47IwpUh" target="_blank" rel="nofollow" class="buy-btn">
+            <i class="fa-solid fa-cart-shopping"></i> Ver en Amazon
+          </a>
         </div>
+      </div>
+
     </div>
 
-    <!-- MODAL PAGO -->
-    <div class="modal-overlay" id="modalPagoOverlay">
-        <div class="modal-body-content">
-            <h3 style="color:var(--neon-green); text-align:center; margin-bottom:10px;"><i class="fas fa-file-invoice-dollar"></i> Pack de BTS ARMY — 2.50$</h3>
-            <div style="background:rgba(255,255,255,0.06); padding:12px; border-radius:12px; margin-bottom:12px; font-size:0.85rem; line-height:1.5;">
-                <p><strong>🏦 Pago Móvil (Venezuela):</strong></p>
-                <p>Banco: <b>Banco Exterior (0115)</b></p>
-                <p>C.I.: <b>19828415</b></p>
-                <p>Teléfono: <b>04127391195</b></p>
-                <p>Monto: <b>2.50$</b></p>
-                <hr style="border-color:#444; margin:8px 0;">
-                <p><strong>🌐 Internacional:</strong></p>
-                <p>PayPal: <b>ymvs2000@gmail.com</b></p>
-                <p>Zinli: <b>ymvs2000@gmail.com</b></p>
-            </div>
-            <label style="font-size:0.8rem;">Nombre del Comprador/a:</label>
-            <input type="text" id="nombreComprador" class="input-custom" placeholder="Tu Nombre...">
-            <label class="file-upload-label" style="margin-top:5px;">
-                <i class="fas fa-paperclip"></i> Insertar Comprobante (Imagen)
-                <input type="file" id="comprobanteFoto" accept="image/*" style="display:none;" onchange="cargadoComprobante(this)">
-            </label>
-            <div id="avisoComprobante" style="font-size:0.75rem; color:var(--neon-green); margin-bottom:8px; display:none;">✓ Comprobante listo para enviar</div>
-            <button class="btn-action" style="background:#22c55e;" onclick="enviarPagoWhatsApp()">Enviar Pago por WhatsApp 📲</button>
-            <button class="btn-action" style="background:#4b5563; margin-top:5px;" onclick="cerrarModal('modalPagoOverlay')">Cancelar</button>
-        </div>
+    <!-- SECCIÓN DE REDES SOCIALES -->
+    <div class="social-section">
+      <h3>Síguenos por estas redes</h3>
+      <p>Estaremos subiendo contenidos variados, unboxings y ofertas exclusivas 🚀</p>
+      <div class="social-links">
+        <a href="https://www.tiktok.com/@trendpulsepicks?_r=1&_t=ZS-9AcPkInAPLR" target="_blank" class="social-btn tiktok">
+          <i class="fa-brands fa-tiktok"></i> TikTok
+        </a>
+        <a href="https://www.instagram.com/trendpulsepickss?srtk=MTl4bXlxN25mNWU4aQ==" target="_blank" class="social-btn instagram">
+          <i class="fa-brands fa-instagram"></i> Instagram
+        </a>
+      </div>
     </div>
+  </div>
 
-    <!-- MODAL JUEGOS -->
-    <div class="modal-overlay" id="modalJuegoOverlay">
-        <div class="modal-body-content" id="cuerpoJuegoModal"></div>
-    </div>
+  <footer>
+    &copy; 2026 Trend Pulse Picks. Todos los derechos reservados.
+  </footer>
 
-    <footer>
-        Copyright 2026 Derecho reservado @Creative Ymvs | BTS ARMY
-    </footer>
-
-    <script>
-        var fotoMuroBase64 = "";
-
-        function cargarFotoMuro(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    fotoMuroBase64 = e.target.result;
-                    document.getElementById('avisoFotoMuro').style.display = 'block';
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function publicarMuro() {
-            var user = document.getElementById('muroUsuario').value || 'ARMY_Anonimo';
-            var msg = document.getElementById('muroMensaje').value;
-
-            if(!msg && !fotoMuroBase64) {
-                alert('Escribe un mensaje o sube una foto para publicar en el muro.');
-                return;
-            }
-
-            var lista = document.getElementById('listaMuro');
-            var item = document.createElement('div');
-            item.className = 'chat-item';
-            
-            var contenido = '<strong>@' + user + ':</strong> ' + msg;
-            if(fotoMuroBase64) {
-                contenido += '<br><img src="' + fotoMuroBase64 + '">';
-            }
-            item.innerHTML = contenido;
-            lista.prepend(item);
-
-            document.getElementById('muroMensaje').value = '';
-            document.getElementById('muroArchivo').value = '';
-            fotoMuroBase64 = "";
-            document.getElementById('avisoFotoMuro').style.display = 'none';
-        }
-
-        function toggleChatFlotante() {
-            var box = document.getElementById('chatFlotanteBox');
-            box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        function abrirPagoModal() {
-            document.getElementById('modalPagoOverlay').style.display = 'flex';
-        }
-
-        function cargadoComprobante(input) {
-            if(input.files && input.files[0]) {
-                document.getElementById('avisoComprobante').style.display = 'block';
-            }
-        }
-
-        function enviarPagoWhatsApp() {
-            var nombre = document.getElementById('nombreComprador').value || 'ARMY';
-            var msgText = encodeURIComponent('Hola @Creative Ymvs! Soy ' + nombre + ', acabo de realizar el pago de 2.50$ para el Pack de BTS ARMY (Libro PDF, Afiches y Adhesivos). Adjunto mi comprobante para que me pases los archivos.');
-            window.open('https://api.whatsapp.com/send?phone=584127391195&text=' + msgText, '_blank');
-            cerrarModal('modalPagoOverlay');
-        }
-
-        function cerrarModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-
-        var preguntasTrivia = [
-            { p: "1. ¿En qué año debutó BTS oficialmente?", r: ["2013", "2015", "2012"], c: 0 },
-            { p: "2. ¿Cuál es el nombre del fandom oficial de BTS?", r: ["BLINK", "ARMY", "STAY"], c: 1 },
-            { p: "3. ¿Quién es el líder del grupo?", r: ["Jin", "Jimin", "RM"], c: 2 },
-            { p: "4. ¿Qué canción rompió récord mundial en YouTube en 24 horas?", r: ["Dynamite", "Butter", "Boy With Luv"], c: 1 },
-            { p: "5. ¿Cuál es el color oficial representativo para ARMY?", r: ["Púrpura / Morado", "Rosa", "Azul"], c: 0 },
-            { p: "6. ¿Cómo se llama el programa de variedad propio de BTS?", r: ["Run BTS!", "BTS In the Soop", "Bon Voyage"], c: 0 }
-        ];
-
-        var indexTrivia = 0;
-        var correctasTrivia = 0;
-
-        function iniciarTriviaBTS() {
-            indexTrivia = 0;
-            correctasTrivia = 0;
-            mostrarPreguntaTrivia();
-            document.getElementById('modalJuegoOverlay').style.display = 'flex';
-        }
-
-        function mostrarPreguntaTrivia() {
-            var item = preguntasTrivia[indexTrivia];
-            var cuerpo = document.getElementById('cuerpoJuegoModal');
-            var btns = '';
-            for(var i=0; i<item.r.length; i++) {
-                btns += '<button class="btn-action" style="background:#1f2937; margin-bottom:6px;" onclick="responderTrivia(' + i + ')">' + item.r[i] + '</button>';
-            }
-            cuerpo.innerHTML = '<h3 style="color:var(--neon-purple); text-align:center; margin-bottom:10px;">🌟 Trivia BTS (' + (indexTrivia + 1) + '/6)</h3>' +
-                '<p style="font-size:0.9rem; margin-bottom:12px;"><b>' + item.p + '</b></p>' + btns +
-                '<button class="btn-action" style="background:#4b5563; margin-top:10px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cancelar</button>';
-        }
-
-        function responderTrivia(opcion) {
-            if(opcion === preguntasTrivia[indexTrivia].c) correctasTrivia++;
-            indexTrivia++;
-            if(indexTrivia < preguntasTrivia.length) {
-                mostrarPreguntaTrivia();
-            } else {
-                var porcentaje = Math.round((correctasTrivia / 6) * 100);
-                var cuerpo = document.getElementById('cuerpoJuegoModal');
-                cuerpo.innerHTML = '<h3 style="color:var(--neon-gold); text-align:center;">¡Resultado de la Trivia!</h3>' +
-                    '<p style="text-align:center; font-size:1.5rem; margin:15px 0;">Obtuvo ' + porcentaje + '% 🌟</p>' +
-                    '<button class="btn-action" style="background:#22c55e;" onclick="compartirTriviaWA(' + porcentaje + ')">Compartir en WhatsApp 📲</button>' +
-                    '<button class="btn-action" style="background:#4b5563; margin-top:8px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cerrar</button>';
-            }
-        }
-
-        function compartirTriviaWA(pct) {
-            var txt = encodeURIComponent('Obtuvo ' + pct + '% en la trivia BTS @Creative Ymvs | BTS ARMY');
-            window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
-        }
-
-        // Test de Compatibilidad con preguntas y opciones dinámicas únicas
-        var preguntasComp = [
-            {
-                p: "1. ¿Cómo te imaginas tu cita ideal de noche con tu bias?",
-                ops: ["A) Caminata privada bajo las estrellas 💫", "B) Cena elegante e intensa a la luz de las velas 🔥", "C) Maratón de películas y risas en casa 🍿"]
-            },
-            {
-                p: "2. ¿Qué detalle apasionado prefieres recibir?",
-                ops: ["A) Una carta escrita a mano con sus pensamientos secretos ✉️", "B) Una mirada profunda e inolvidable a los ojos 👀", "C) Un abrazo cálido e inesperado por la espalda 💖"]
-            },
-            {
-                p: "3. ¿Cuál es la cualidad que más te atrae en un chico?",
-                ops: ["A) Su inteligencia, liderazgo y misterio 🧠", "B) Su carisma, sensualidad y confianza 😈", "C) Su ternura, sentido del humor y dulzura 😊"]
-            },
-            {
-                p: "4. ¿Qué tipo de música te pondría en ambiente romántico?",
-                ops: ["A) Baladas suaves y R&B apasionado 🎶", "B) Beats intensos y reggaetón/pop atrapante 💥", "C) Melodías acústicas de piano o guitarra 🎹"]
-            },
-            {
-                p: "5. ¿Cuál es tu reacción cuando te miran fijamente?",
-                ops: ["A) Sonrío tímida pero mantengo el contacto visual 🙈", "B) Me acerco más y le devuelvo la mirada con picardía 😏", "C) Me me da vergüenza y me río nerviosa 💕"]
-            },
-            {
-                p: "6. ¿En qué lugar te gustaría un beso inolvidable?",
-                ops: ["A) En un escenario o azotea con vista a la ciudad 🌃", "B) En el camerino a solas antes del concierto 💋", "C) Bajo la lluvia en una calle tranquila 🌧️"]
-            }
-        ];
-        
-        var indexComp = 0;
-
-        function iniciarCompatibilidadBTS() {
-            indexComp = 0;
-            mostrarPreguntaComp();
-            document.getElementById('modalJuegoOverlay').style.display = 'flex';
-        }
-
-        function mostrarPreguntaComp() {
-            var item = preguntasComp[indexComp];
-            var cuerpo = document.getElementById('cuerpoJuegoModal');
-            var btns = '';
-            for(var i=0; i<item.ops.length; i++) {
-                btns += '<button class="btn-action" style="background:#1f2937; margin-bottom:6px;" onclick="siguienteComp()">' + item.ops[i] + '</button>';
-            }
-
-            cuerpo.innerHTML = '<h3 style="color:var(--neon-pink); text-align:center; margin-bottom:10px;">🔥 Test Compatibilidad (' + (indexComp + 1) + '/6)</h3>' +
-                '<p style="font-size:0.88rem; margin-bottom:12px;"><b>' + item.p + '</b></p>' + btns +
-                '<button class="btn-action" style="background:#4b5563; margin-top:10px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cancelar</button>';
-        }
-
-        function siguienteComp() {
-            indexComp++;
-            if(indexComp < preguntasComp.length) {
-                mostrarPreguntaComp();
-            } else {
-                var integrantes = ["Jungkook", "V", "Jimin", "RM", "Suga", "Jin", "J-Hope"];
-                var integranteRandom = integrantes[Math.floor(Math.random() * integrantes.length)];
-                var pct = Math.floor(Math.random() * 15) + 85;
-                var emojis = "😈💥🔥❤️🌟💘";
-
-                var cuerpo = document.getElementById('cuerpoJuegoModal');
-                cuerpo.innerHTML = '<h3 style="color:var(--neon-gold); text-align:center;">¡Resultado de Compatibilidad!</h3>' +
-                    '<div style="background:rgba(255,255,255,0.06); padding:12px; border-radius:12px; margin:12px 0; text-align:center;">' +
-                    '<p style="font-size:1.2rem; font-weight:bold;">' + emojis + '</p>' +
-                    '<p style="margin-top:6px; font-size:1.1rem;">Compatibilidad: <b>' + pct + '%</b> con <b>' + integranteRandom + '</b></p>' +
-                    '</div>' +
-                    '<button class="btn-action" style="background:#22c55e;" onclick="compartirCompWA(\'' + emojis + '\', ' + pct + ', \'' + integranteRandom + '\')">Compartir en WhatsApp 📲</button>' +
-                    '<button class="btn-action" style="background:#4b5563; margin-top:8px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cerrar</button>';
-            }
-        }
-
-        function compartirCompWA(emojis, pct, intg) {
-            var txt = encodeURIComponent(emojis + ' Obtuve ' + pct + '% de compatibilidad con ' + intg + ' @Creative Ymvs | BTS ARMY');
-            window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
-        }
-    </script>
 </body>
 </html>
