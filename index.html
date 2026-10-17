@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trend Pulse Picks - K-pop Collection</title>
+  <title>NaguaraDigital - Portal Exclusivo BTS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #8a2be2;
+      --secondary: #00d2ff;
+      --dark: #121212;
+      --card-bg: #ffffff;
+      --text: #333333;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,265 +23,336 @@
 
     body {
       background-color: #f4f6f9;
-      color: #333;
+      color: var(--text);
       line-height: 1.6;
     }
 
     header {
       background: linear-gradient(135deg, #6b11ff, #2575fc);
       color: white;
-      padding: 30px 20px;
+      padding: 40px 20px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
 
     header h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       font-weight: 800;
       letter-spacing: 1px;
     }
 
     header p {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       opacity: 0.9;
-      margin-top: 5px;
+      margin-top: 8px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 15px 25px;
+      border: none;
+      background: none;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #666;
+      cursor: pointer;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 30px auto;
       padding: 0 20px;
     }
 
-    /* Catálogo de Productos */
-    .catalog {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      justify-content: center;
+    .section-block {
+      display: none;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
     }
 
-    .product-card {
-      width: 360px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Marco exacto de 360px x 200px */
-    .product-image-box {
-      width: 360px;
-      height: 200px;
-      background-color: #f8f8f8;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .product-image-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .section-block.active {
       display: block;
     }
 
-    .product-info {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .product-tag {
-      font-size: 11px;
-      font-weight: 700;
-      color: #8a2be2;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    .product-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin-bottom: 8px;
-    }
-
-    .product-desc {
-      font-size: 0.88rem;
-      color: #666;
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--primary);
       margin-bottom: 20px;
-      line-height: 1.4;
-      flex-grow: 1;
-    }
-
-    .buy-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background-color: #ff9900;
-      color: #ffffff;
-      padding: 12px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: background-color 0.2s ease;
-      text-align: center;
-    }
-
-    .buy-btn:hover {
-      background-color: #e68a00;
-    }
-
-    /* Sección de Redes Sociales */
-    .social-section {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 30px 20px;
-      text-align: center;
-      margin-top: 50px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .social-section h3 {
-      font-size: 1.3rem;
-      color: #222;
-      margin-bottom: 10px;
-    }
-
-    .social-section p {
-      font-size: 0.95rem;
-      color: #666;
-      margin-bottom: 20px;
-    }
-
-    .social-links {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .social-btn {
-      display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      border-radius: 30px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
-    .social-btn:hover {
-      transform: scale(1.05);
+    /* TRIVIA */
+    .quiz-option {
+      display: block;
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .quiz-option:hover {
+      background: #eef2ff;
+      border-color: var(--primary);
+    }
+
+    /* COMPATIBILIDAD */
+    .compat-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .compat-form input, .compat-form select {
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, #8a2be2, #00d2ff);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-action:hover {
       opacity: 0.9;
     }
 
-    .social-btn.tiktok {
-      background: #000000;
+    /* MURO ARMY */
+    .wall-box {
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
     }
 
-    .social-btn.instagram {
-      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    .wall-post {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      margin-bottom: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    /* PACK RECURSOS / PAGO MÓVIL */
+    .pack-card {
+      border: 2px solid #8a2be2;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      background: #fbf8ff;
+    }
+
+    .price-tag {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #8a2be2;
+      margin: 15px 0;
+    }
+
+    .pago-movil-box {
+      display: none;
+      background: white;
+      border: 2px dashed #00d2ff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .pago-movil-box h4 {
+      color: var(--primary);
+      margin-bottom: 10px;
     }
 
     footer {
       text-align: center;
       padding: 20px;
       color: #888;
-      font-size: 0.85rem;
-      margin-top: 30px;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>TREND PULSE PICKS</h1>
-    <p>Las mejores tendencias y recomendaciones exclusivas de K-pop 💜</p>
+    <h1>NaguaraDigital 💜</h1>
+    <p>Portal Exclusivo BTS: Entretenimiento, Muro Army & Recursos Digitales</p>
   </header>
 
+  <nav class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('trivia')"><i class="fa-solid fa-gamepad"></i> Trivia BTS</button>
+    <button class="tab-btn" onclick="showTab('compatibilidad')"><i class="fa-solid fa-heart"></i> Compatibilidad</button>
+    <button class="tab-btn" onclick="showTab('muro')"><i class="fa-solid fa-comments"></i> Muro Army</button>
+    <button class="tab-btn" onclick="showTab('recursos')"><i class="fa-solid fa-download"></i> Pack Digital & Pago</button>
+  </nav>
+
   <div class="container">
-    <div class="catalog">
 
-      <!-- PRODUCTO 1: Foto blanca (Fan Box) -->
-      <div class="product-card">
-        <div class="product-image-box">
-          <img src="URL_DE_TU_IMAGEN_1.jpg" alt="BTS Ultimate Fan Box">
-        </div>
-        <div class="product-info">
-          <span class="product-tag">Top Ventas | Amazon Pick 💜</span>
-          <h2 class="product-title">BTS Ultimate Fan Box</h2>
-          <p class="product-desc">Kit completo con lanyards, portacredenciales, photocards y stickers exclusivos.</p>
-          <a href="https://amzn.to/3WuCuB0" target="_blank" rel="nofollow" class="buy-btn">
-            <i class="fa-solid fa-cart-shopping"></i> Ver en Amazon
-          </a>
-        </div>
-      </div>
-
-      <!-- PRODUCTO 2: Foto negra micrófono (Army Bomb) -->
-      <div class="product-card">
-        <div class="product-image-box">
-          <img src="URL_DE_TU_IMAGEN_2.png" alt="BTS Official Lightstick Army Bomb">
-        </div>
-        <div class="product-info">
-          <span class="product-tag">Must-Have | Concert Essential 💣💜</span>
-          <h2 class="product-title">BTS Official Lightstick Army Bomb</h2>
-          <p class="product-desc">El lightstick oficial imprescindible. Conexión Bluetooth y modo concierto.</p>
-          <a href="https://amzn.to/3UrhHhf" target="_blank" rel="nofollow" class="buy-btn">
-            <i class="fa-solid fa-cart-shopping"></i> Ver en Amazon
-          </a>
-        </div>
-      </div>
-
-      <!-- PRODUCTO 3: Foto álbum (Photocard Binder) -->
-      <div class="product-card">
-        <div class="product-image-box">
-          <img src="URL_DE_TU_IMAGEN_3.jpg" alt="BTS Photocard Binder Collector">
-        </div>
-        <div class="product-info">
-          <span class="product-tag">Essential Storage | Collector's Choice 📁💜</span>
-          <h2 class="product-title">BTS Photocard Binder Collector</h2>
-          <p class="product-desc">Álbum coleccionador de alta calidad con cierre de cremallera y hojas transparentes.</p>
-          <a href="https://amzn.to/47IwpUh" target="_blank" rel="nofollow" class="buy-btn">
-            <i class="fa-solid fa-cart-shopping"></i> Ver en Amazon
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- SECCIÓN DE REDES SOCIALES -->
-    <div class="social-section">
-      <h3>Síguenos por estas redes</h3>
-      <p>Estaremos subiendo contenidos variados, unboxings y ofertas exclusivas 🚀</p>
-      <div class="social-links">
-        <a href="https://www.tiktok.com/@trendpulsepicks?_r=1&_t=ZS-9AcPkInAPLR" target="_blank" class="social-btn tiktok">
-          <i class="fa-brands fa-tiktok"></i> TikTok
-        </a>
-        <a href="https://www.instagram.com/trendpulsepickss?srtk=MTl4bXlxN25mNWU4aQ==" target="_blank" class="social-btn instagram">
-          <i class="fa-brands fa-instagram"></i> Instagram
-        </a>
+    <!-- SECCIÓN 1: TRIVIA -->
+    <div id="trivia" class="section-block active">
+      <h2 class="section-title"><i class="fa-solid fa-circle-question"></i> Trivia Exclusiva BTS</h2>
+      <p style="margin-bottom: 15px;">Demuestra qué tanto sabes sobre los miembros de BTS:</p>
+      <div id="quiz-container">
+        <h3 id="quiz-question">¿En qué año debutó oficialmente BTS?</h3>
+        <button class="quiz-option" onclick="checkQuiz(false)">2011</button>
+        <button class="quiz-option" onclick="checkQuiz(true)">2013</button>
+        <button class="quiz-option" onclick="checkQuiz(false)">2015</button>
+        <p id="quiz-result" style="margin-top: 15px; font-weight: 700;"></p>
       </div>
     </div>
+
+    <!-- SECCIÓN 2: TEST DE COMPATIBILIDAD -->
+    <div id="compatibilidad" class="section-block">
+      <h2 class="section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Test de Compatibilidad BTS</h2>
+      <div class="compat-form">
+        <input type="text" id="user-name" placeholder="Tu Nombre o Apodo">
+        <select id="bias-select">
+          <option value="">Selecciona tu Bias</option>
+          <option value="RM">RM (Namjoon)</option>
+          <option value="Jin">Jin (Seokjin)</option>
+          <option value="Suga">Suga (Yoongi)</option>
+          <option value="J-Hope">J-Hope (Hoseok)</option>
+          <option value="Jimin">Jimin</option>
+          <option value="V">V (Taehyung)</option>
+          <option value="Jungkook">Jungkook</option>
+        </select>
+        <button class="btn-action" onclick="calcCompat()">Calcular Compatibilidad ✨</button>
+        <div id="compat-result" style="text-align: center; margin-top: 15px; font-size: 1.2rem; font-weight: 700;"></div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: MURO ARMY -->
+    <div id="muro" class="section-block">
+      <h2 class="section-title"><i class="fa-solid fa-comment-dots"></i> Muro de Mensajes Army</h2>
+      <div class="wall-box">
+        <input type="text" id="wall-input" placeholder="Deja un mensaje para la comunidad..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 10px;">
+        <button class="btn-action" onclick="postMessage()" style="width: 100%;">Publicar en el Muro</button>
+      </div>
+      <div id="wall-posts">
+        <div class="wall-post"><strong>@ArmyVzl:</strong> ¡BTS por siempre! Esperando el 2026 con todo 💜</div>
+        <div class="wall-post"><strong>@NaguaraDigital:</strong> ¡Bienvenidos al portal! Dejen sus mensajes.</div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4: RECURSOS DIGITALES Y PAGO MÓVIL -->
+    <div id="recursos" class="section-block">
+      <h2 class="section-title"><i class="fa-solid fa-box-open"></i> Pack Digital Exclusivo BTS</h2>
+      <div class="pack-card">
+        <h3>Pack Premium BTS Army Digital</h3>
+        <p>Incluye Wallpapers HD, Guías Coleccionables, Plantillas de Photocards y Recursos VIP.</p>
+        <div class="price-tag">Ref. $3.00 / Pago Móvil</div>
+        <button class="btn-action" onclick="togglePagoMovil()"><i class="fa-solid fa-mobile-screen"></i> Pagar con Pago Móvil</button>
+
+        <!-- DATOS DE PAGO MÓVIL -->
+        <div id="pago-movil-details" class="pago-movil-box">
+          <h4><i class="fa-solid fa-receipt"></i> Datos para el Pago Móvil:</h4>
+          <p><strong>Banco:</strong> (Tu Banco Ej: Banesco / Venezuela / Mercantil)</p>
+          <p><strong>Cédula:</strong> V-XX.XXX.XXX</p>
+          <p><strong>Teléfono:</strong> 04XX-XXX-XXXX</p>
+          <p><strong>Monto en Bs:</strong> Según tasa BCV del día</p>
+          <hr style="margin: 15px 0;">
+          <p style="font-size: 0.9rem; color: #555;">Una vez realizado el pago, envía tu comprobante por WhatsApp/Telegram para liberar tu enlace de descarga inmediato.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <footer>
-    &copy; 2026 Trend Pulse Picks. Todos los derechos reservados.
+    &copy; 2026 NaguaraDigital. Todos los derechos reservados.
   </footer>
+
+  <script>
+    // Navegación por Pestañas
+    function showTab(tabId) {
+      document.querySelectorAll('.section-block').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // Lógica Trivia
+    function checkQuiz(isCorrect) {
+      const res = document.getElementById('quiz-result');
+      if(isCorrect) {
+        res.style.color = 'green';
+        res.innerHTML = '¡Correcto! BTS debutó el 13 de junio de 2013 🎉';
+      } else {
+        res.style.color = 'red';
+        res.innerHTML = 'Incorrecto. ¡Inténtalo de nuevo!';
+      }
+    }
+
+    // Lógica Compatibilidad
+    function calcCompat() {
+      const name = document.getElementById('user-name').value;
+      const bias = document.getElementById('bias-select').value;
+      const res = document.getElementById('compat-result');
+      if(!name || !bias) {
+        res.innerHTML = '<span style="color:red;">Por favor coloca tu nombre y selecciona un miembro.</span>';
+        return;
+      }
+      const randomPct = Math.floor(Math.random() * 21) + 80; // 80% a 100%
+      res.innerHTML = `<span style="color:#8a2be2;">¡${name} y ${bias} tienen un ${randomPct}% de compatibilidad! 💜✨</span>`;
+    }
+
+    // Lógica Muro
+    function postMessage() {
+      const input = document.getElementById('wall-input');
+      if(input.value.trim() === '') return;
+      const postsContainer = document.getElementById('wall-posts');
+      const newPost = document.createElement('div');
+      newPost.className = 'wall-post';
+      newPost.innerHTML = `<strong>@Fan:</strong> ${input.value}`;
+      postsContainer.prepend(newPost);
+      input.value = '';
+    }
+
+    // Mostrar/Ocultar Pago Móvil
+    function togglePagoMovil() {
+      const details = document.getElementById('pago-movil-details');
+      details.style.display = details.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 
 </body>
 </html>
