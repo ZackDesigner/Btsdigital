@@ -192,7 +192,7 @@
             color: #e2e8f0;
         }
 
-        /* Mercado Virtual Army (Amazon y AliExpress) */
+        /* Mercado Virtual Army (Amazon y AliExpress - SheIn eliminado) */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -418,7 +418,7 @@
         </div>
     </div>
 
-    <!-- 5. MERCADO VIRTUAL -->
+    <!-- 5. MERCADO VIRTUAL (Amazon y AliExpress - SheIn eliminado) -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-shopping-bag"></i> Mercado Virtual Army</h2>
         <div class="market-grid">
@@ -439,12 +439,7 @@
         <h2 class="card-title" style="color:var(--neon-gold);"><i class="fas fa-mobile-alt"></i> Galería Fondos BTS (Gratis)</h2>
         <p style="font-size:0.8rem; color:#aaa; margin-bottom:10px;">Desliza y descarga el fondo de tu integrante favorito.</p>
         <div class="carousel-box">
-            <!-- TARJETA DE PRUEBA CON TUS ENLACES -->
-            <div class="carousel-card">
-                <img src="https://imgur.com/a/ZnQmD5e" alt="Prueba">
-                <button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://imgur.com/a/eoEKUlf', '_blank')">Descargar</button>
-            </div>
-            <!-- Resto de tarjetas de ejemplo -->
+            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=10" alt="RM"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=10', '_blank')">Descargar</button></div>
             <div class="carousel-card"><img src="https://picsum.photos/300/500?random=11" alt="Jin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=11', '_blank')">Descargar</button></div>
             <div class="carousel-card"><img src="https://picsum.photos/300/500?random=12" alt="Suga"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=12', '_blank')">Descargar</button></div>
             <div class="carousel-card"><img src="https://picsum.photos/300/500?random=13" alt="J-Hope"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=13', '_blank')">Descargar</button></div>
@@ -468,7 +463,7 @@
         </div>
     </div>
 
-    <!-- MODAL PAGO -->
+    <!-- MODAL PAGO (Sin comprobante, solo datos y nota para WhatsApp) -->
     <div class="modal-overlay" id="modalPagoOverlay">
         <div class="modal-body-content">
             <h3 style="color:var(--neon-green); text-align:center; margin-bottom:10px;"><i class="fas fa-file-invoice-dollar"></i> Pack de BTS ARMY — 2.50$</h3>
@@ -490,4 +485,255 @@
             <input type="text" id="referenciaPago" class="input-custom" placeholder="Ingresa el número de referencia...">
 
             <p style="font-size:0.78rem; color:var(--neon-gold); margin:8px 0; line-height:1.4;">
-                ⚠️ Nota: Se agradece y se not
+                ⚠️ Nota: Se agradece y se notifica que cuando esté en el chat de WhatsApp envíe el comprobante de pago.
+            </p>
+
+            <button class="btn-action" style="background:#22c55e;" onclick="enviarPagoWhatsApp()">Enviar al WhatsApp 📲</button>
+            <button class="btn-action" style="background:#4b5563; margin-top:5px;" onclick="cerrarModal('modalPagoOverlay')">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- MODAL JUEGOS -->
+    <div class="modal-overlay" id="modalJuegoOverlay">
+        <div class="modal-body-content" id="cuerpoJuegoModal"></div>
+    </div>
+
+    <footer>
+        Copyright 2026 Derecho reservado @Creative Ymvs | BTS ARMY
+    </footer>
+
+    <script>
+        // Configuración de Supabase (Con tu llave real integrada)
+        const SUPABASE_URL = 'https://rcqnmjtxtpnjbgxdwroj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_eON3oZMtUh1ODkcTiIYvEg_kNpOKjLN';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        var fotoMuroBase64 = "";
+
+        function cargarFotoMuro(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    fotoMuroBase64 = e.target.result;
+                    document.getElementById('avisoFotoMuro').style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Cargar mensajes del Muro desde Supabase
+        async function cargarMensajesMuro() {
+            const lista = document.getElementById('listaMuro');
+            const { data, error } = await _supabase
+                .from('wall_of_army')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error("Error al cargar muro:", error);
+                return;
+            }
+
+            if (data && data.length > 0) {
+                lista.innerHTML = '';
+                data.forEach(item => {
+                    var div = document.createElement('div');
+                    div.className = 'chat-item';
+                    var contenido = '<strong>@' + escapeHtml(item.name) + ':</strong> ' + escapeHtml(item.message);
+                    if (item.image_url) {
+                        contenido += '<br><img src="' + item.image_url + '" alt="Foto ARMY">';
+                    }
+                    div.innerHTML = contenido;
+                    lista.appendChild(div);
+                });
+            }
+        }
+
+        // Publicar mensaje y foto en Supabase
+        async function publicarMuro() {
+            var user = document.getElementById('muroUsuario').value.trim() || 'ARMY_Anonimo';
+            var msg = document.getElementById('muroMensaje').value.trim();
+
+            if (!msg && !fotoMuroBase64) {
+                alert('Escribe un mensaje o sube una foto para publicar en el muro.');
+                return;
+            }
+
+            const { error } = await _supabase
+                .from('wall_of_army')
+                .insert([{ 
+                    name: user, 
+                    message: msg || '(Foto compartida)', 
+                    image_url: fotoMuroBase64 ? fotoMuroBase64 : null 
+                }]);
+
+            if (error) {
+                alert('Error al publicar: ' + error.message);
+            } else {
+                document.getElementById('muroUsuario').value = '';
+                document.getElementById('muroMensaje').value = '';
+                document.getElementById('muroArchivo').value = '';
+                fotoMuroBase64 = "";
+                document.getElementById('avisoFotoMuro').style.display = 'none';
+                cargarMensajesMuro();
+            }
+        }
+
+        function toggleChatFlotante() {
+            var box = document.getElementById('chatFlotanteBox');
+            box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function abrirPagoModal() {
+            document.getElementById('modalPagoOverlay').style.display = 'flex';
+        }
+
+        function enviarPagoWhatsApp() {
+            var nombre = document.getElementById('nombreComprador').value.trim() || 'ARMY';
+            var referencia = document.getElementById('referenciaPago').value.trim() || 'No especificada';
+
+            var msgText = encodeURIComponent('Hola @Creative Ymvs! Soy ' + nombre + ', acabo de realizar el pago de 2.50$ para el Pack de BTS ARMY.\n\n*Número de referencia:* ' + referencia + '\n\n⚠️ (Te envío el comprobante de pago por aquí en este chat de WhatsApp).');
+            window.open('https://api.whatsapp.com/send?phone=584127391195&text=' + msgText, '_blank');
+            cerrarModal('modalPagoOverlay');
+        }
+
+        function cerrarModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Cargar los mensajes al iniciar la página
+        cargarMensajesMuro();
+
+        // Lógica de Trivias y Compatibilidad
+        var preguntasTrivia = [
+            { p: "1. ¿En qué año debutó BTS oficialmente?", r: ["2013", "2015", "2012"], c: 0 },
+            { p: "2. ¿Cuál es el nombre del fandom oficial de BTS?", r: ["BLINK", "ARMY", "STAY"], c: 1 },
+            { p: "3. ¿Quién es el líder del grupo?", r: ["Jin", "Jimin", "RM"], c: 2 },
+            { p: "4. ¿Qué canción rompió récord mundial en YouTube en 24 horas?", r: ["Dynamite", "Butter", "Boy With Luv"], c: 1 },
+            { p: "5. ¿Cuál es el color oficial representativo para ARMY?", r: ["Púrpura / Morado", "Rosa", "Azul"], c: 0 },
+            { p: "6. ¿Cómo se llama el programa de variedad propio de BTS?", r: ["Run BTS!", "BTS In the Soop", "Bon Voyage"], c: 0 }
+        ];
+
+        var indexTrivia = 0;
+        var correctasTrivia = 0;
+
+        function iniciarTriviaBTS() {
+            indexTrivia = 0;
+            correctasTrivia = 0;
+            mostrarPreguntaTrivia();
+            document.getElementById('modalJuegoOverlay').style.display = 'flex';
+        }
+
+        function mostrarPreguntaTrivia() {
+            var item = preguntasTrivia[indexTrivia];
+            var cuerpo = document.getElementById('cuerpoJuegoModal');
+            var btns = '';
+            for(var i=0; i<item.r.length; i++) {
+                btns += '<button class="btn-action" style="background:#1f2937; margin-bottom:6px;" onclick="responderTrivia(' + i + ')">' + item.r[i] + '</button>';
+            }
+            cuerpo.innerHTML = '<h3 style="color:var(--neon-purple); text-align:center; margin-bottom:10px;">🌟 Trivia BTS (' + (indexTrivia + 1) + '/6)</h3>' +
+                '<p style="font-size:0.9rem; margin-bottom:12px;"><b>' + item.p + '</b></p>' + btns +
+                '<button class="btn-action" style="background:#4b5563; margin-top:10px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cancelar</button>';
+        }
+
+        function responderTrivia(opcion) {
+            if(opcion === preguntasTrivia[indexTrivia].c) correctasTrivia++;
+            indexTrivia++;
+            if(indexTrivia < preguntasTrivia.length) {
+                mostrarPreguntaTrivia();
+            } else {
+                var porcentaje = Math.round((correctasTrivia / 6) * 100);
+                var cuerpo = document.getElementById('cuerpoJuegoModal');
+                cuerpo.innerHTML = '<h3 style="color:var(--neon-gold); text-align:center;">¡Resultado de la Trivia!</h3>' +
+                    '<p style="text-align:center; font-size:1.5rem; margin:15px 0;">Obtuviste ' + porcentaje + '% 🌟</p>' +
+                    '<button class="btn-action" style="background:#22c55e;" onclick="compartirTriviaWA(' + porcentaje + ')">Compartir en WhatsApp 📲</button>' +
+                    '<button class="btn-action" style="background:#4b5563; margin-top:8px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cerrar</button>';
+            }
+        }
+
+        function compartirTriviaWA(pct) {
+            var txt = encodeURIComponent('Obtuve ' + pct + '% en la trivia BTS @Creative Ymvs | BTS ARMY');
+            window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
+        }
+
+        var preguntasComp = [
+            {
+                p: "1. ¿Cómo te imaginas tu cita ideal de noche con tu bias?",
+                ops: ["A) Caminata privada bajo las estrellas 💫", "B) Cena elegante e intensa a la luz de las velas 🔥", "C) Maratón de películas y risas en casa 🍿"]
+            },
+            {
+                p: "2. ¿Qué detalle apasionado prefieres recibir?",
+                ops: ["A) Una carta escrita a mano con sus pensamientos secretos ✉️", "B) Una mirada profunda e inolvidable a los ojos 👀", "C) Un abrazo cálido e inesperado por la espalda 💖"]
+            },
+            {
+                p: "3. ¿Cuál es la cualidad que más te atrae en un chico?",
+                ops: ["A) Su inteligencia, liderazgo y misterio 🧠", "B) Su carisma, sensualidad y confianza 😈", "C) Su ternura, sentido del humor y dulzura 😊"]
+            },
+            {
+                p: "4. ¿Qué tipo de música te pondría en ambiente romántico?",
+                ops: ["A) Baladas suaves y R&B apasionado 🎶", "B) Beats intensos y reggaetón/pop atrapante 💥", "C) Melodías acústicas de piano o guitarra 🎹"]
+            },
+            {
+                p: "5. ¿Cuál es tu reacción cuando te miran fijamente?",
+                ops: ["A) Sonrío tímida pero mantengo el contacto visual 🙈", "B) Me acerco más y le devuelvo la mirada con picardía 😏", "C) Me da vergüenza y me río nerviosa 💕"]
+            },
+            {
+                p: "6. ¿En qué lugar te gustaría un beso inolvidable?",
+                ops: ["A) En un escenario o azotea con vista a la ciudad 🌃", "B) En el camerino a solas antes del concierto 💋", "C) Bajo la lluvia en una calle tranquila 🌧️"]
+            }
+        ];
+        
+        var indexComp = 0;
+
+        function iniciarCompatibilidadBTS() {
+            indexComp = 0;
+            mostrarPreguntaComp();
+            document.getElementById('modalJuegoOverlay').style.display = 'flex';
+        }
+
+        function mostrarPreguntaComp() {
+            var item = preguntasComp[indexComp];
+            var cuerpo = document.getElementById('cuerpoJuegoModal');
+            var btns = '';
+            for(var i=0; i<item.ops.length; i++) {
+                btns += '<button class="btn-action" style="background:#1f2937; margin-bottom:6px;" onclick="siguienteComp()">' + item.ops[i] + '</button>';
+            }
+
+            cuerpo.innerHTML = '<h3 style="color:var(--neon-pink); text-align:center; margin-bottom:10px;">🔥 Test Compatibilidad (' + (indexComp + 1) + '/6)</h3>' +
+                '<p style="font-size:0.88rem; margin-bottom:12px;"><b>' + item.p + '</b></p>' + btns +
+                '<button class="btn-action" style="background:#4b5563; margin-top:10px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cancelar</button>';
+        }
+
+        function siguienteComp() {
+            indexComp++;
+            if(indexComp < preguntasComp.length) {
+                mostrarPreguntaComp();
+            } else {
+                var integrantes = ["Jungkook", "V", "Jimin", "RM", "Suga", "Jin", "J-Hope"];
+                var integranteRandom = integrantes[Math.floor(Math.random() * integrantes.length)];
+                var pct = Math.floor(Math.random() * 15) + 85;
+                var emojis = "😈💥🔥❤️🌟💘";
+
+                var cuerpo = document.getElementById('cuerpoJuegoModal');
+                cuerpo.innerHTML = '<h3 style="color:var(--neon-gold); text-align:center;">¡Resultado de Compatibilidad!</h3>' +
+                    '<div style="background:rgba(255,255,255,0.06); padding:12px; border-radius:12px; margin:12px 0; text-align:center;">' +
+                    '<p style="font-size:1.2rem; font-weight:bold;">' + emojis + '</p>' +
+                    '<p style="margin-top:6px; font-size:1.1rem;">Compatibilidad: <b>' + pct + '%</b> con <b>' + integranteRandom + '</b></p>' +
+                    '</div>' +
+                    '<button class="btn-action" style="background:#22c55e;" onclick="compartirCompWA(\'' + emojis + '\', ' + pct + ', \'' + integranteRandom + '\')">Compartir en WhatsApp 📲</button>' +
+                    '<button class="btn-action" style="background:#4b5563; margin-top:8px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cerrar</button>';
+            }
+        }
+
+        function compartirCompWA(emojis, pct, intg) {
+            var txt = encodeURIComponent(emojis + ' Obtuve ' + pct + '% de compatibilidad con ' + intg + ' @Creative Ymvs | BTS ARMY');
+            window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
+        }
+    </script>
+</body>
+</html>
