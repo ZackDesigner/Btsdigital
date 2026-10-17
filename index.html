@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BTS ARMY Portal | @creativeymvs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #ff007f 0%, #00f2fe 100%);
@@ -53,6 +55,33 @@
             font-size: 0.85rem;
             color: #f3f4f6;
             margin-top: 4px;
+        }
+
+        /* Redes Sociales Header */
+        .social-header {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-header a {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-header a:hover {
+            background: var(--neon-pink);
         }
 
         .card {
@@ -107,7 +136,7 @@
 
         /* 1. Muro Army */
         .chat-list {
-            max-height: 220px;
+            max-height: 250px;
             overflow-y: auto;
             margin-bottom: 10px;
             display: flex;
@@ -130,6 +159,7 @@
             border-radius: 8px;
             margin-top: 6px;
             display: block;
+            object-fit: cover;
         }
 
         .file-upload-label {
@@ -162,7 +192,7 @@
             color: #e2e8f0;
         }
 
-        /* Mercado Virtual Army */
+        /* Mercado Virtual Army (Amazon y AliExpress) */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -190,12 +220,17 @@
             display: block;
             margin-top: 6px;
             padding: 5px;
-            background: var(--neon-pink);
-            color: white;
+            background: #ff9900;
+            color: #121212;
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
             font-size: 0.7rem;
+        }
+
+        .market-link.aliexpress {
+            background: #ff4747;
+            color: white;
         }
 
         /* Galería Fondos BTS */
@@ -327,9 +362,14 @@
     <header>
         <h1>BTS ARMY</h1>
         <p>Portal Oficial | @creativeymvs</p>
+        <!-- Enlaces a Redes Sociales -->
+        <div class="social-header">
+            <a href="https://www.tiktok.com/@creativeymvs" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/creativeymvs" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
     </header>
 
-    <!-- 1. MURO ARMY -->
+    <!-- 1. MURO ARMY (Conectado a Supabase sin borrarse) -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-comments"></i> Muro Army</h2>
         <div class="chat-list" id="listaMuro">
@@ -341,7 +381,7 @@
         <textarea id="muroMensaje" class="input-custom" placeholder="Escribe tu mensaje en el muro..." rows="2"></textarea>
         
         <label class="file-upload-label">
-            <i class="fas fa-camera"></i> Subir Foto de la Galería
+            <i class="fas fa-camera"></i> Subir Foto o Imagen
             <input type="file" id="muroArchivo" accept="image/*" style="display:none;" onchange="cargarFotoMuro(this)">
         </label>
         <div id="avisoFotoMuro" style="font-size:0.75rem; color:var(--neon-green); margin-bottom:8px; display:none;">✓ Foto cargada lista para enviar</div>
@@ -356,7 +396,7 @@
         <button class="btn-action" onclick="iniciarTriviaBTS()">Comenzar Trivia BTS 🌟</button>
     </div>
 
-    <!-- 3. COMPATIBILIDAD (6 PREGUNTAS CON RESPUESTAS VARIADAS) -->
+    <!-- 3. COMPATIBILIDAD (6 PREGUNTAS) -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-heart"></i> Descubre tu Compatibilidad con BTS</h2>
         <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:12px;">Test interactivo de 6 preguntas exclusivas para descubrir con quién tienes química.</p>
@@ -378,19 +418,19 @@
         </div>
     </div>
 
-    <!-- 5. MERCADO VIRTUAL (9 CASILLAS) -->
+    <!-- 5. MERCADO VIRTUAL (Amazon y AliExpress - SheIn eliminado) -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-shopping-bag"></i> Mercado Virtual Army</h2>
         <div class="market-grid">
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=1" alt="Amazon"><strong>Amazon BTS</strong><a href="https://amazon.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=2" alt="Amazon"><strong>Amazon BTS</strong><a href="https://amazon.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=3" alt="Amazon"><strong>Amazon BTS</strong><a href="https://amazon.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=4" alt="SheIn"><strong>SheIn BTS</strong><a href="https://shein.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=5" alt="SheIn"><strong>SheIn BTS</strong><a href="https://shein.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=6" alt="SheIn"><strong>SheIn BTS</strong><a href="https://shein.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=7" alt="AliExpress"><strong>AliExpress</strong><a href="https://aliexpress.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=8" alt="AliExpress"><strong>AliExpress</strong><a href="https://aliexpress.com" target="_blank" class="market-link">Ver Oferta</a></div>
-            <div class="market-card"><img src="https://picsum.photos/100/100?random=9" alt="AliExpress"><strong>AliExpress</strong><a href="https://aliexpress.com" target="_blank" class="market-link">Ver Oferta</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=1" alt="Amazon"><strong>Album Proof</strong><a href="https://www.amazon.com/s?k=BTS+Proof+Album&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=2" alt="Amazon"><strong>Lightstick</strong><a href="https://www.amazon.com/s?k=BTS+Lightstick&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=3" alt="Amazon"><strong>Hoodie BTS</strong><a href="https://www.amazon.com/s?k=BTS+Hoodie&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=4" alt="AliExpress"><strong>Photocards</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=5" alt="AliExpress"><strong>Mochila BTS</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=6" alt="AliExpress"><strong>BT21 Peluche</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=7" alt="Amazon"><strong>Collar BTS</strong><a href="https://www.amazon.com/s?k=BTS+Necklace&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=8" alt="AliExpress"><strong>Pulsera ARMY</strong><a href="https://aliexpress.com" target="_blank" class="market-link aliexpress">AliExpress</a></div>
+            <div class="market-card"><img src="https://picsum.photos/100/100?random=9" alt="Amazon"><strong>Taza BT21</strong><a href="https://www.amazon.com/s?k=BT21+Mug&tag=tuafiliado-20" target="_blank" class="market-link">Amazon</a></div>
         </div>
     </div>
 
@@ -423,7 +463,7 @@
         </div>
     </div>
 
-    <!-- MODAL PAGO -->
+    <!-- MODAL PAGO (Sin comprobante, solo datos y nota para WhatsApp) -->
     <div class="modal-overlay" id="modalPagoOverlay">
         <div class="modal-body-content">
             <h3 style="color:var(--neon-green); text-align:center; margin-bottom:10px;"><i class="fas fa-file-invoice-dollar"></i> Pack de BTS ARMY — 2.50$</h3>
@@ -435,17 +475,20 @@
                 <p>Monto: <b>2.50$</b></p>
                 <hr style="border-color:#444; margin:8px 0;">
                 <p><strong>🌐 Internacional:</strong></p>
-                <p>PayPal: <b>ymvs2000@gmail.com</b></p>
-                <p>Zinli: <b>ymvs2000@gmail.com</b></p>
+                <p>PayPal / Zinli: <b>ymvs2000@gmail.com</b></p>
             </div>
-            <label style="font-size:0.8rem;">Nombre del Comprador/a:</label>
-            <input type="text" id="nombreComprador" class="input-custom" placeholder="Tu Nombre...">
-            <label class="file-upload-label" style="margin-top:5px;">
-                <i class="fas fa-paperclip"></i> Insertar Comprobante (Imagen)
-                <input type="file" id="comprobanteFoto" accept="image/*" style="display:none;" onchange="cargadoComprobante(this)">
-            </label>
-            <div id="avisoComprobante" style="font-size:0.75rem; color:var(--neon-green); margin-bottom:8px; display:none;">✓ Comprobante listo para enviar</div>
-            <button class="btn-action" style="background:#22c55e;" onclick="enviarPagoWhatsApp()">Enviar Pago por WhatsApp 📲</button>
+            
+            <label style="font-size:0.8rem;">Tu Nombre:</label>
+            <input type="text" id="nombreComprador" class="input-custom" placeholder="Nombre completo o apodo...">
+            
+            <label style="font-size:0.8rem;">Número de Referencia del Pago:</label>
+            <input type="text" id="referenciaPago" class="input-custom" placeholder="Ingresa el número de referencia...">
+
+            <p style="font-size:0.78rem; color:var(--neon-gold); margin:8px 0; line-height:1.4;">
+                ⚠️ Nota: Se agradece y se notifica que cuando esté en el chat de WhatsApp envíe el comprobante de pago.
+            </p>
+
+            <button class="btn-action" style="background:#22c55e;" onclick="enviarPagoWhatsApp()">Enviar al WhatsApp 📲</button>
             <button class="btn-action" style="background:#4b5563; margin-top:5px;" onclick="cerrarModal('modalPagoOverlay')">Cancelar</button>
         </div>
     </div>
@@ -460,6 +503,11 @@
     </footer>
 
     <script>
+        // Configuración de Supabase
+        const SUPABASE_URL = 'https://rcqnmjtxtpnjbgxdwroj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_eON3oZMtUh10DkcTiIYvEg_kNpOkJLN';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
         var fotoMuroBase64 = "";
 
         function cargarFotoMuro(input) {
@@ -473,30 +521,63 @@
             }
         }
 
-        function publicarMuro() {
-            var user = document.getElementById('muroUsuario').value || 'ARMY_Anonimo';
-            var msg = document.getElementById('muroMensaje').value;
+        // Cargar mensajes del Muro desde Supabase
+        async function cargarMensajesMuro() {
+            const lista = document.getElementById('listaMuro');
+            const { data, error } = await _supabase
+                .from('wall_of_army')
+                .select('*')
+                .order('created_at', { ascending: false });
 
-            if(!msg && !fotoMuroBase64) {
+            if (error) {
+                console.error("Error al cargar muro:", error);
+                return;
+            }
+
+            if (data && data.length > 0) {
+                lista.innerHTML = '';
+                data.forEach(item => {
+                    var div = document.createElement('div');
+                    div.className = 'chat-item';
+                    var contenido = '<strong>@' + escapeHtml(item.name) + ':</strong> ' + escapeHtml(item.message);
+                    if (item.image_url) {
+                        contenido += '<br><img src="' + item.image_url + '" alt="Foto ARMY">';
+                    }
+                    div.innerHTML = contenido;
+                    lista.appendChild(div);
+                });
+            }
+        }
+
+        // Publicar mensaje y foto en Supabase (para que no se pierdan)
+        async function publicarMuro() {
+            var user = document.getElementById('muroUsuario').value.trim() || 'ARMY_Anonimo';
+            var msg = document.getElementById('muroMensaje').value.trim();
+
+            if (!msg && !fotoMuroBase64) {
                 alert('Escribe un mensaje o sube una foto para publicar en el muro.');
                 return;
             }
 
-            var lista = document.getElementById('listaMuro');
-            var item = document.createElement('div');
-            item.className = 'chat-item';
-            
-            var contenido = '<strong>@' + user + ':</strong> ' + msg;
-            if(fotoMuroBase64) {
-                contenido += '<br><img src="' + fotoMuroBase64 + '">';
-            }
-            item.innerHTML = contenido;
-            lista.prepend(item);
+            const { error } = await _supabase
+                .from('wall_of_army')
+                .insert([{ 
+                    name: user, 
+                    message: msg || '(Foto compartida)', 
+                    image_url: fotoMuroBase64 ? fotoMuroBase64 : null 
+                }]);
 
-            document.getElementById('muroMensaje').value = '';
-            document.getElementById('muroArchivo').value = '';
-            fotoMuroBase64 = "";
-            document.getElementById('avisoFotoMuro').style.display = 'none';
+            if (error) {
+                alert('Error al publicar en el muro. Inténtalo de nuevo.');
+                console.error(error);
+            } else {
+                document.getElementById('muroUsuario').value = '';
+                document.getElementById('muroMensaje').value = '';
+                document.getElementById('muroArchivo').value = '';
+                fotoMuroBase64 = "";
+                document.getElementById('avisoFotoMuro').style.display = 'none';
+                cargarMensajesMuro();
+            }
         }
 
         function toggleChatFlotante() {
@@ -508,15 +589,11 @@
             document.getElementById('modalPagoOverlay').style.display = 'flex';
         }
 
-        function cargadoComprobante(input) {
-            if(input.files && input.files[0]) {
-                document.getElementById('avisoComprobante').style.display = 'block';
-            }
-        }
-
         function enviarPagoWhatsApp() {
-            var nombre = document.getElementById('nombreComprador').value || 'ARMY';
-            var msgText = encodeURIComponent('Hola @Creative Ymvs! Soy ' + nombre + ', acabo de realizar el pago de 2.50$ para el Pack de BTS ARMY (Libro PDF, Afiches y Adhesivos). Adjunto mi comprobante para que me pases los archivos.');
+            var nombre = document.getElementById('nombreComprador').value.trim() || 'ARMY';
+            var referencia = document.getElementById('referenciaPago').value.trim() || 'No especificada';
+
+            var msgText = encodeURIComponent('Hola @Creative Ymvs! Soy ' + nombre + ', acabo de realizar el pago de 2.50$ para el Pack de BTS ARMY.\n\n*Número de referencia:* ' + referencia + '\n\n⚠️ (Te envío el comprobante de pago por aquí en este chat de WhatsApp).');
             window.open('https://api.whatsapp.com/send?phone=584127391195&text=' + msgText, '_blank');
             cerrarModal('modalPagoOverlay');
         }
@@ -525,6 +602,15 @@
             document.getElementById(id).style.display = 'none';
         }
 
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Cargar los mensajes al iniciar la página
+        cargarMensajesMuro();
+
+        // Lógica de Trivias y Compatibilidad
         var preguntasTrivia = [
             { p: "1. ¿En qué año debutó BTS oficialmente?", r: ["2013", "2015", "2012"], c: 0 },
             { p: "2. ¿Cuál es el nombre del fandom oficial de BTS?", r: ["BLINK", "ARMY", "STAY"], c: 1 },
@@ -565,18 +651,17 @@
                 var porcentaje = Math.round((correctasTrivia / 6) * 100);
                 var cuerpo = document.getElementById('cuerpoJuegoModal');
                 cuerpo.innerHTML = '<h3 style="color:var(--neon-gold); text-align:center;">¡Resultado de la Trivia!</h3>' +
-                    '<p style="text-align:center; font-size:1.5rem; margin:15px 0;">Obtuvo ' + porcentaje + '% 🌟</p>' +
+                    '<p style="text-align:center; font-size:1.5rem; margin:15px 0;">Obtuviste ' + porcentaje + '% 🌟</p>' +
                     '<button class="btn-action" style="background:#22c55e;" onclick="compartirTriviaWA(' + porcentaje + ')">Compartir en WhatsApp 📲</button>' +
                     '<button class="btn-action" style="background:#4b5563; margin-top:8px;" onclick="cerrarModal(\'modalJuegoOverlay\')">Cerrar</button>';
             }
         }
 
         function compartirTriviaWA(pct) {
-            var txt = encodeURIComponent('Obtuvo ' + pct + '% en la trivia BTS @Creative Ymvs | BTS ARMY');
+            var txt = encodeURIComponent('Obtuve ' + pct + '% en la trivia BTS @Creative Ymvs | BTS ARMY');
             window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
         }
 
-        // Test de Compatibilidad con preguntas y opciones dinámicas únicas
         var preguntasComp = [
             {
                 p: "1. ¿Cómo te imaginas tu cita ideal de noche con tu bias?",
@@ -596,7 +681,7 @@
             },
             {
                 p: "5. ¿Cuál es tu reacción cuando te miran fijamente?",
-                ops: ["A) Sonrío tímida pero mantengo el contacto visual 🙈", "B) Me acerco más y le devuelvo la mirada con picardía 😏", "C) Me me da vergüenza y me río nerviosa 💕"]
+                ops: ["A) Sonrío tímida pero mantengo el contacto visual 🙈", "B) Me acerco más y le devuelvo la mirada con picardía 😏", "C) Me da vergüenza y me río nerviosa 💕"]
             },
             {
                 p: "6. ¿En qué lugar te gustaría un beso inolvidable?",
