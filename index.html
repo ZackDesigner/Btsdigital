@@ -192,7 +192,7 @@
             color: #e2e8f0;
         }
 
-        /* Mercado Virtual Army (Amazon y AliExpress - SheIn eliminado) */
+        /* Mercado Virtual Army (Amazon y AliExpress) */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -418,7 +418,7 @@
         </div>
     </div>
 
-    <!-- 5. MERCADO VIRTUAL (Amazon y AliExpress - SheIn eliminado) -->
+    <!-- 5. MERCADO VIRTUAL -->
     <div class="card">
         <h2 class="card-title"><i class="fas fa-shopping-bag"></i> Mercado Virtual Army</h2>
         <div class="market-grid">
@@ -439,7 +439,12 @@
         <h2 class="card-title" style="color:var(--neon-gold);"><i class="fas fa-mobile-alt"></i> Galería Fondos BTS (Gratis)</h2>
         <p style="font-size:0.8rem; color:#aaa; margin-bottom:10px;">Desliza y descarga el fondo de tu integrante favorito.</p>
         <div class="carousel-box">
-            <div class="carousel-card"><img src="https://picsum.photos/300/500?random=10" alt="RM"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=10', '_blank')">Descargar</button></div>
+            <!-- TARJETA DE PRUEBA CON TUS ENLACES -->
+            <div class="carousel-card">
+                <img src="https://imgur.com/a/ZnQmD5e" alt="Prueba">
+                <button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://imgur.com/a/eoEKUlf', '_blank')">Descargar</button>
+            </div>
+            <!-- Resto de tarjetas de ejemplo -->
             <div class="carousel-card"><img src="https://picsum.photos/300/500?random=11" alt="Jin"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=11', '_blank')">Descargar</button></div>
             <div class="carousel-card"><img src="https://picsum.photos/300/500?random=12" alt="Suga"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=12', '_blank')">Descargar</button></div>
             <div class="carousel-card"><img src="https://picsum.photos/300/500?random=13" alt="J-Hope"><button class="btn-action" style="padding:5px; font-size:0.7rem; margin:0;" onclick="window.open('https://picsum.photos/300/500?random=13', '_blank')">Descargar</button></div>
@@ -463,7 +468,7 @@
         </div>
     </div>
 
-    <!-- MODAL PAGO (Sin comprobante, solo datos y nota para WhatsApp) -->
+    <!-- MODAL PAGO -->
     <div class="modal-overlay" id="modalPagoOverlay">
         <div class="modal-body-content">
             <h3 style="color:var(--neon-green); text-align:center; margin-bottom:10px;"><i class="fas fa-file-invoice-dollar"></i> Pack de BTS ARMY — 2.50$</h3>
@@ -503,7 +508,6 @@
     </footer>
 
     <script>
-        // Configuración de Supabase (Con tu llave real integrada)
         const SUPABASE_URL = 'https://rcqnmjtxtpnjbgxdwroj.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_eON3oZMtUh1ODkcTiIYvEg_kNpOKjLN';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -521,7 +525,6 @@
             }
         }
 
-        // Cargar mensajes del Muro desde Supabase
         async function cargarMensajesMuro() {
             const lista = document.getElementById('listaMuro');
             const { data, error } = await _supabase
@@ -549,7 +552,6 @@
             }
         }
 
-        // Publicar mensaje y foto en Supabase
         async function publicarMuro() {
             var user = document.getElementById('muroUsuario').value.trim() || 'ARMY_Anonimo';
             var msg = document.getElementById('muroMensaje').value.trim();
@@ -606,10 +608,8 @@
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        // Cargar los mensajes al iniciar la página
         cargarMensajesMuro();
 
-        // Lógica de Trivias y Compatibilidad
         var preguntasTrivia = [
             { p: "1. ¿En qué año debutó BTS oficialmente?", r: ["2013", "2015", "2012"], c: 0 },
             { p: "2. ¿Cuál es el nombre del fandom oficial de BTS?", r: ["BLINK", "ARMY", "STAY"], c: 1 },
