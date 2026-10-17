@@ -549,7 +549,7 @@
             }
         }
 
-        // Publicar mensaje y foto en Supabase (para que no se pierdan)
+        // Publicar mensaje y foto en Supabase
         async function publicarMuro() {
             var user = document.getElementById('muroUsuario').value.trim() || 'ARMY_Anonimo';
             var msg = document.getElementById('muroMensaje').value.trim();
@@ -568,8 +568,7 @@
                 }]);
 
             if (error) {
-                alert('Error al publicar en el muro. Inténtalo de nuevo.');
-                console.error(error);
+                alert('Error al publicar: ' + error.message);
             } else {
                 document.getElementById('muroUsuario').value = '';
                 document.getElementById('muroMensaje').value = '';
