@@ -117,6 +117,9 @@
             margin-top: 8px;
             font-size: 0.95rem;
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
         .btn-action:active {
@@ -370,10 +373,18 @@
         <h1>BTS ARMY</h1>
         <p>Portal Oficial | @creativeymvs</p>
         <div class="social-header">
+            <a href="https://t.me/bstarmyportal" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="https://www.tiktok.com/@trendpulsepicks?_r=1&_t=ZS-9AceP41Nr0L" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
             <a href="https://www.instagram.com/trendpulsepickss?exln=MTl4bXlxN25mNWU4aQ==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </header>
+
+    <!-- UNIÓN TELEGRAM COMUNIDAD -->
+    <div class="card" style="border: 1px solid var(--neon-blue); text-align: center;">
+        <h2 class="card-title" style="justify-content: center; color: var(--neon-blue);"><i class="fab fa-telegram"></i> Únete a la Comunidad Telegram</h2>
+        <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 12px;">Comparte con otros fans, entérate de novedades exclusivas y haz crecer tu negocio.</p>
+        <a href="https://t.me/bstarmyportal" target="_blank" class="btn-action" style="background: linear-gradient(45deg, #00f2fe, var(--neon-purple));">Unirse al Grupo Oficial 🚀</a>
+    </div>
 
     <!-- 1. MURO ARMY -->
     <div class="card">
@@ -419,7 +430,7 @@
                 📌 <b>AFICHES BTS</b> (Diseños HD)<br>
                 📌 <b>ADHESIVO BTS</b> (Stickers para Imprimir)
             </div>
-            <p style="font-size:1.1rem; font-weight:bold; color:var(--neon-green); margin-bottom:10px;">Precio: 2.50$</p>
+            <p style="font-size:1.1rem; font-weight:bold; color:var(--neon-green); margin-bottom:10px;">Precio: 3.00$</p>
             <button class="btn-action" onclick="abrirPagoModal()">Comprar Pack Completo</button>
         </div>
     </div>
@@ -494,13 +505,13 @@
     <!-- MODAL PAGO -->
     <div class="modal-overlay" id="modalPagoOverlay">
         <div class="modal-body-content">
-            <h3 style="color:var(--neon-green); text-align:center; margin-bottom:10px;"><i class="fas fa-file-invoice-dollar"></i> Pack de BTS ARMY — 2.50$</h3>
+            <h3 style="color:var(--neon-green); text-align:center; margin-bottom:10px;"><i class="fas fa-file-invoice-dollar"></i> Pack de BTS ARMY — 3.00$</h3>
             <div style="background:rgba(255,255,255,0.06); padding:12px; border-radius:12px; margin-bottom:12px; font-size:0.85rem; line-height:1.5;">
                 <p><strong>🏦 Pago Móvil (Venezuela):</strong></p>
                 <p>Banco: <b>Banco Exterior (0115)</b></p>
                 <p>C.I.: <b>19828415</b></p>
                 <p>Teléfono: <b>04127391195</b></p>
-                <p>Monto: <b>2.50$</b></p>
+                <p>Monto: <b>3.00$</b></p>
                 <hr style="border-color:#444; margin:8px 0;">
                 <p><strong>🌐 Internacional:</strong></p>
                 <p>PayPal / Zinli: <b>ymvs2000@gmail.com</b></p>
@@ -513,7 +524,7 @@
             <input type="text" id="referenciaPago" class="input-custom" placeholder="Ingresa el número de referencia...">
 
             <p style="font-size:0.78rem; color:var(--neon-gold); margin:8px 0; line-height:1.4;">
-                ⚠️ Nota: Se agradece y se notifica que cuando esté en el chat de WhatsApp envíe el comprobante de pago.
+                ⚠️ Nota: Se agradece y se notifica que cuando esté en el chat envíe el comprobante de pago.
             </p>
 
             <button class="btn-action" style="background:#22c55e;" onclick="enviarPagoWhatsApp()">Enviar al WhatsApp 📲</button>
@@ -617,7 +628,7 @@
             var nombre = document.getElementById('nombreComprador').value.trim() || 'ARMY';
             var referencia = document.getElementById('referenciaPago').value.trim() || 'No especificada';
 
-            var msgText = encodeURIComponent('Hola @Creative Ymvs! Soy ' + nombre + ', acabo de realizar el pago de 2.50$ para el Pack de BTS ARMY.\n\n*Número de referencia:* ' + referencia + '\n\n⚠️ (Te envío el comprobante de pago por aquí en este chat de WhatsApp).');
+            var msgText = encodeURIComponent('Hola @Creative Ymvs! Soy ' + nombre + ', acabo de realizar el pago de 3.00$ para el Pack de BTS ARMY.\n\n*Número de referencia:* ' + referencia + '\n\n⚠️ (Te envío el comprobante de pago por aquí en este chat de WhatsApp).');
             window.open('https://api.whatsapp.com/send?phone=584127391195&text=' + msgText, '_blank');
             cerrarModal('modalPagoOverlay');
         }
